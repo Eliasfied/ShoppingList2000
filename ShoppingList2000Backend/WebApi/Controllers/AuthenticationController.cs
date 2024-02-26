@@ -1,5 +1,7 @@
-﻿using Application.Interfaces.Services;
+﻿using Application.DTOs;
+using Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Reflection;
 
 namespace WebApi.Controllers
 {
@@ -15,16 +17,16 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register(string email, string password)
+        public async Task<IActionResult> Register(UserDTO userDTO)
         {
-            var userId = await _authenticationService.RegisterAsync(email, password);
+            var userId = await _authenticationService.RegisterAsync(userDTO);
             return Ok(userId);
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(string email, string password)
+        public async Task<IActionResult> Login(LoginRequest loginRequest)
         {
-            var jwtToken = await _authenticationService.LoginAsync(email, password);
+            var jwtToken = await _authenticationService.LoginAsync(loginRequest);
             return Ok(jwtToken);
         }
 

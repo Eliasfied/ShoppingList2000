@@ -1,4 +1,4 @@
-﻿using Application.Interfaces.Services;
+﻿using Application.Interfaces;
 using Application.Services;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure;
 
-    public static class DependencyInjection
+public static class DependencyInjection
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services) {
 

@@ -86,3 +86,4 @@ C:\Users\elias.fiedler\source\repos\ShoppingList2000\ShoppingList2000Backend\Web
 C:\Users\elias.fiedler\source\repos\ShoppingList2000\ShoppingList2000Backend\WebApi\bin\Debug\net7.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\elias.fiedler\source\repos\ShoppingList2000\ShoppingList2000Backend\WebApi\bin\Debug\net7.0\Microsoft.IdentityModel.Tokens.dll
 C:\Users\elias.fiedler\source\repos\ShoppingList2000\ShoppingList2000Backend\WebApi\bin\Debug\net7.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\elias.fiedler\source\repos\ShoppingList2000\ShoppingList2000Backend\WebApi\bin\Debug\net7.0\AutoMapper.dll

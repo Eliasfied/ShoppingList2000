@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "dy85boYgEOnbRvyeppZa+blr65qw5I5KCKAnq1Rucxjy9HULrc4APWvKM1g6P9BUrdVeSJtY3pmx514UMy5clA==",
+  "dgSpecHash": "gJXyP3sPacYvyqePWhRlv5ScJWnFCIAfY8QDDIdKhsDtG/to+EOe4T9OKsFFCbafKBEiWnlbgJJfkYqs4yxiSg==",
   "success": true,
   "projectFilePath": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\WebApi\\WebApi.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\elias.fiedler\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\elias.fiedler\\.nuget\\packages\\firebaseadmin\\2.4.0\\firebaseadmin.2.4.0.nupkg.sha512",
     "C:\\Users\\elias.fiedler\\.nuget\\packages\\firebaseauthentication.net\\4.1.0\\firebaseauthentication.net.4.1.0.nupkg.sha512",
     "C:\\Users\\elias.fiedler\\.nuget\\packages\\fluentvalidation\\11.9.0\\fluentvalidation.11.9.0.nupkg.sha512",

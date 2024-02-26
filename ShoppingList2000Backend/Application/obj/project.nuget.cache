@@ -1,14 +1,18 @@
 {
   "version": 2,
-  "dgSpecHash": "sf8HrekMJz3YFOh/e5/jdr4HeYVUoQ2+K9TZeh2WvCeX2aUG/cklpDNRqt1TWt/RdRfo5P+tCT+rVs93mRS4gQ==",
+  "dgSpecHash": "Q8q0XZf81S6xz8r/YW1U0yTPLKCOStqW59Zn2Amv92KR3mcQHC4qgd3oIrALZGTxIVVpW6U0KctLLpyn6Rw3Fw==",
   "success": true,
   "projectFilePath": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Application\\Application.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\elias.fiedler\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\elias.fiedler\\.nuget\\packages\\fluentvalidation\\11.9.0\\fluentvalidation.11.9.0.nupkg.sha512",
     "C:\\Users\\elias.fiedler\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.9.0\\fluentvalidation.dependencyinjectionextensions.11.9.0.nupkg.sha512",
     "C:\\Users\\elias.fiedler\\.nuget\\packages\\mediatr\\12.2.0\\mediatr.12.2.0.nupkg.sha512",
     "C:\\Users\\elias.fiedler\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
-    "C:\\Users\\elias.fiedler\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512"
+    "C:\\Users\\elias.fiedler\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
+    "C:\\Users\\elias.fiedler\\.nuget\\packages\\microsoft.extensions.options\\6.0.0\\microsoft.extensions.options.6.0.0.nupkg.sha512",
+    "C:\\Users\\elias.fiedler\\.nuget\\packages\\microsoft.extensions.primitives\\6.0.0\\microsoft.extensions.primitives.6.0.0.nupkg.sha512",
+    "C:\\Users\\elias.fiedler\\.nuget\\packages\\system.runtime.compilerservices.unsafe\\6.0.0\\system.runtime.compilerservices.unsafe.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }

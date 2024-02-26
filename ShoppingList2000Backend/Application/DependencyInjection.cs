@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +17,8 @@ namespace Application;
         services.AddMediatR(configuration => configuration.RegisterServicesFromAssemblies(assembly));
 
         services.AddValidatorsFromAssembly(assembly);
+
+        services.AddAutoMapper(assembly);
 
         return services;
         }

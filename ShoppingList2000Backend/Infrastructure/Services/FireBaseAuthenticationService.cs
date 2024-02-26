@@ -1,4 +1,5 @@
-﻿using Application.Interfaces.Services;
+﻿using Application.DTOs;
+using Application.Interfaces;
 using Firebase.Auth;
 using FirebaseAdmin.Auth;
 using System;
@@ -17,17 +18,17 @@ namespace Application.Services
         {
             _firebaseAuth = firebaseAuth;
         }
-        public async Task<string> RegisterAsync(string email, string password)
+        public async Task<string> RegisterAsync(UserDTO userDTO)
         {
-            var userArgs = new UserRecordArgs { Email = email, Password = password };
+            var userArgs = new UserRecordArgs { Email = userDTO.Email, Password = userDTO.Password };
 
             var userRecord = await FirebaseAuth.DefaultInstance.CreateUserAsync(userArgs);
 
             return userRecord.Uid;
         }
-        public async Task<string> LoginAsync(string email, string password)
+        public async Task<string> LoginAsync(LoginRequest loginRequest)
         {
-            var userCredentials = await _firebaseAuth.SignInWithEmailAndPasswordAsync(email, password);
+            var userCredentials = await _firebaseAuth.SignInWithEmailAndPasswordAsync(loginRequest.Email, loginRequest.Password);
             return userCredentials is null ? null : await userCredentials.User.GetIdTokenAsync();
         }
     }
