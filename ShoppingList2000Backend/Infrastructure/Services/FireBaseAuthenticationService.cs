@@ -1,5 +1,5 @@
 ﻿using Application.DTOs;
-using Application.Interfaces;
+using Application.Interfaces.Services;
 using Firebase.Auth;
 using FirebaseAdmin.Auth;
 using System;
@@ -30,6 +30,11 @@ namespace Application.Services
         {
             var userCredentials = await _firebaseAuth.SignInWithEmailAndPasswordAsync(loginRequest.Email, loginRequest.Password);
             return userCredentials is null ? null : await userCredentials.User.GetIdTokenAsync();
+        }
+
+        public async Task LogoutAsync()
+        {
+              _firebaseAuth.SignOut();
         }
     }
 }

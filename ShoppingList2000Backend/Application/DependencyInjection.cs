@@ -1,4 +1,7 @@
-﻿using FluentValidation;
+﻿using Application.Interfaces.Services;
+using Application.Mappings;
+using Application.Services;
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -18,7 +21,9 @@ namespace Application;
 
         services.AddValidatorsFromAssembly(assembly);
 
-        services.AddAutoMapper(assembly);
+        services.AddAutoMapper(assembly, typeof(ShoppingListProfileApplication).Assembly);
+
+        services.AddSingleton<IShoppingListService, ShoppingListService>();
 
         return services;
         }

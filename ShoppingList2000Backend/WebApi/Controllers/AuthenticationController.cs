@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
-using Application.Interfaces;
+using Application.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
 
@@ -33,7 +34,15 @@ namespace WebApi.Controllers
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
+            _authenticationService.LogoutAsync();
             return Ok();
+        }
+
+        [HttpGet("geheim")]
+        [Authorize]
+        public string Get()
+        {
+            return "geheime Ressource";
         }
     }
 }

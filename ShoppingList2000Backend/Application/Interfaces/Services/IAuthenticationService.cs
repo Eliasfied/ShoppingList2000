@@ -5,12 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Interfaces
+namespace Application.Interfaces.Services
 {
     public interface IAuthenticationService
     {
         Task<string> RegisterAsync(UserDTO userDTO);
 
         Task<string> LoginAsync(LoginRequest loginRequest);
+
+        Task LogoutAsync();
     }
 }
