@@ -12,7 +12,7 @@ namespace Application.Interfaces.Repositories
     {
         Task<ShoppingList> CreateShoppingList(ShoppingList shoppingList);
         Task<ShoppingList> GetShoppingList(string shoppingListId);
-        Task<List<ShoppingList>> GetAllShoppingList();
+        Task<List<ShoppingList>> GetAllShoppingLists();
         public Task<ShoppingList> UpdateShoppingList(ShoppingList shoppingList, string shoppingListId);
         public Task<string> DeleteShoppingList(string shoppingListId);
     }

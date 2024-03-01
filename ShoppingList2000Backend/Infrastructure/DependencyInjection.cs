@@ -1,4 +1,5 @@
-﻿using Application.Interfaces.Repositories;
+﻿using Application.Interfaces.EventHandlers;
+using Application.Interfaces.Repositories;
 using Application.Interfaces.Services;
 using Application.Services;
 using AutoMapper;
@@ -8,6 +9,8 @@ using Google.Cloud.Firestore;
 using Google.Cloud.Firestore.V1;
 using Grpc.Auth;
 using Grpc.Net.Client;
+using Infrastructure.EventHandlers;
+using Infrastructure.Hubs;
 using Infrastructure.Mappings;
 using Infrastructure.Repositories;
 using Microsoft.Extensions.Configuration;
@@ -27,20 +30,29 @@ public static class DependencyInjection
 
         var assembly = typeof(DependencyInjection).Assembly;
 
-        FirebaseApp.Create(new AppOptions
-        {
-            Credential = GoogleCredential.FromFile("firebase.json")
-        });
 
         services.AddAutoMapper(assembly, typeof(ShoppingListProfileInfrastructure).Assembly);
 
         services.AddSingleton<IAuthenticationService, FireBaseAuthenticationService>();
 
+        services.AddTransient<ShoppingListHub>();
+        services.AddTransient<List<IShoppingListUpdatedEventHandler>>(provider =>
+        {
+            return new List<IShoppingListUpdatedEventHandler>
+            {
+                provider.GetRequiredService<NotificationEventHandler>()
+            };
+        });
+
+
+        //FireBase
+        FirebaseApp.Create(new AppOptions
+        {
+            Credential = GoogleCredential.FromFile("firebase.json")
+        });
         var projectId = configuration["Firebase:ProjectId"];
         var filepath = configuration["FireBase:ServiceAccountPath"];
         string jsonContent = System.IO.File.ReadAllText(filepath);
-
-
         FirestoreDb firestoreDb = new FirestoreDbBuilder
         {
             ProjectId = projectId,

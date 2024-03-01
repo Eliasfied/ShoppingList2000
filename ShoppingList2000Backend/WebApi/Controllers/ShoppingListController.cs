@@ -23,33 +23,33 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("get")]
-        public async Task<IActionResult> GetShoppingList(string id)
+        public async Task<IActionResult> GetShoppingList(string shoppingListId, string userId)
         {
-            var response = await _shoppingListService.GetShoppingList(id);
+            var response = await _shoppingListService.GetShoppingList(shoppingListId);
 
             return Ok(response);
         }
 
         [HttpGet("getAll")]
-        public async Task<IActionResult> GetAllShoppingList()
+        public async Task<IActionResult> GetAllShoppingLists(string userId)
         {
-            var response = await _shoppingListService.GetAllShoppingList();
+            var response = await _shoppingListService.GetAllShoppingLists();
 
             return Ok(response);
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> UpdateShoppingList(ShoppingListDTO shoppingListDTO, string id)
+        public async Task<IActionResult> UpdateShoppingList(ShoppingListDTO shoppingListDTO, string shoppingListId, string userId)
         {
-            var response = await _shoppingListService.UpdateShoppingList(shoppingListDTO, id);
+            var response = await _shoppingListService.UpdateShoppingList(shoppingListDTO, shoppingListId);
 
             return Ok(response);
         }
 
         [HttpPost("delete")]
-        public async Task<IActionResult> DeleteShoppingList(string id)
+        public async Task<IActionResult> DeleteShoppingList(string shoppingListId, string userId)
         {
-            var response = await _shoppingListService.DeleteShoppingList(id);
+            var response = await _shoppingListService.DeleteShoppingList(shoppingListId);
 
             return Ok(response);
         }

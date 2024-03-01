@@ -1,4 +1,6 @@
 ﻿using Application.DTOs;
+using Application.Events;
+using Application.Interfaces.EventHandlers;
 using Application.Interfaces.Repositories;
 using Application.Interfaces.Services;
 using AutoMapper;
@@ -15,10 +17,13 @@ namespace Application.Services
     {
         IMapper _mapper;
         IShoppingListRepository _shoppingListRepository;
-        public ShoppingListService(IMapper mapper, IShoppingListRepository shoppingListRepository)
+        private readonly List<IShoppingListUpdatedEventHandler> _updatedEventsHandler;
+
+        public ShoppingListService(IMapper mapper, IShoppingListRepository shoppingListRepository, List<IShoppingListUpdatedEventHandler> updatedEventsHandler)
         {
             _mapper = mapper;
             _shoppingListRepository = shoppingListRepository;
+            _updatedEventsHandler = updatedEventsHandler;
         }
         public async Task<ShoppingListDTO> CreateShoppingList(ShoppingListDTO shoppingListDTO)
         {
@@ -39,9 +44,9 @@ namespace Application.Services
 
             
         }
-        public async Task<List<ShoppingListDTO>> GetAllShoppingList()
+        public async Task<List<ShoppingListDTO>> GetAllShoppingLists()
         {
-            var shoppingLists = await _shoppingListRepository.GetAllShoppingList();
+            var shoppingLists = await _shoppingListRepository.GetAllShoppingLists();
 
             return _mapper.Map<List<ShoppingListDTO>>(shoppingLists);
         }
@@ -50,6 +55,14 @@ namespace Application.Services
             var shoppingList = _mapper.Map<ShoppingList>(shoppingListDTO);
             var shoppingListBack = await _shoppingListRepository.UpdateShoppingList(shoppingList, shoppingListId);
             var shoppingListDTOBack = _mapper.Map<ShoppingListDTO>(shoppingListBack);
+
+            var shoppingListUpdatedEvent = new ShoppingListUpdatedEvent(shoppingListBack);
+
+            foreach (var handler in _updatedEventsHandler)
+            {
+                handler.Handle(shoppingListUpdatedEvent);
+            }
+
 
             return shoppingListDTOBack;
         }

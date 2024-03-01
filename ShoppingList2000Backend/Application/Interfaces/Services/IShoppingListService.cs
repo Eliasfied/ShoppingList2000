@@ -12,7 +12,7 @@ namespace Application.Interfaces.Services
     {
         Task<ShoppingListDTO> CreateShoppingList(ShoppingListDTO shoppingList);
         Task<ShoppingListDTO> GetShoppingList(string shoppingListId);
-        Task<List<ShoppingListDTO>> GetAllShoppingList();
+        Task<List<ShoppingListDTO>> GetAllShoppingLists();
         Task<ShoppingListDTO> UpdateShoppingList(ShoppingListDTO shoppingList, string shoppingListId);
         Task<string> DeleteShoppingList(string shoppingListId);
 

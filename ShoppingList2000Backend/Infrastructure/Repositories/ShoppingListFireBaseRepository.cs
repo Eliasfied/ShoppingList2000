@@ -45,7 +45,7 @@ namespace Infrastructure.Repositories
             return shoppingList;
             
         }
-        public async Task<List<ShoppingList>> GetAllShoppingList()
+        public async Task<List<ShoppingList>> GetAllShoppingLists()
         {
             var collection = _firestoreDb.Collection(_collectionName);
             var snapshot = await collection.GetSnapshotAsync();

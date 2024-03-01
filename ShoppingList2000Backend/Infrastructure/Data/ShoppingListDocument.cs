@@ -18,5 +18,11 @@ namespace Infrastructure.Data
 
         [FirestoreProperty]
         public List<ProductDocument> Products { get; set; }
+
+        [FirestoreProperty]
+        public string CreatorUserId {  get; set; }
+
+        [FirestoreProperty]
+        public List<string> EligebleUsers { get; set; }
     }
 }
