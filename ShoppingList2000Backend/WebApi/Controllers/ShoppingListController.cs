@@ -33,15 +33,15 @@ namespace WebApi.Controllers
         [HttpGet("getAll")]
         public async Task<IActionResult> GetAllShoppingLists(string userId)
         {
-            var response = await _shoppingListService.GetAllShoppingLists();
+            var response = await _shoppingListService.GetAllShoppingLists(userId);
 
             return Ok(response);
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> UpdateShoppingList(ShoppingListDTO shoppingListDTO, string shoppingListId, string userId)
+        public async Task<IActionResult> UpdateShoppingList(ShoppingListDTO shoppingListDTO, string userId)
         {
-            var response = await _shoppingListService.UpdateShoppingList(shoppingListDTO, shoppingListId);
+            var response = await _shoppingListService.UpdateShoppingList(shoppingListDTO);
 
             return Ok(response);
         }

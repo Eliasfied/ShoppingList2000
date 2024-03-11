@@ -23,6 +23,10 @@ namespace Infrastructure.Data
         public string CreatorUserId {  get; set; }
 
         [FirestoreProperty]
-        public List<string> EligebleUsers { get; set; }
+        public List<string> EligibleUsers { get; set; }
+
+        [FirestoreProperty]
+        public string LastUpdatedUser { get; set; }
+
     }
 }

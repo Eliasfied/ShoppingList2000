@@ -15,5 +15,8 @@ namespace Infrastructure.Data
 
         [FirestoreProperty]
         public bool IsPermanent { get; set; }
+
+        [FirestoreProperty]
+        public bool IsChecked { get; set; }
     }
 }

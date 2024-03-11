@@ -23,9 +23,16 @@ namespace Infrastructure.EventHandlers
 
         public async void Handle(ShoppingListUpdatedEvent shoppingListUpdatedEvent)
         {
-            foreach (var userId in shoppingListUpdatedEvent.ShoppingList.EligebleUsers)
+            var userIdAndEligibleUsers = new List<string>();
+            userIdAndEligibleUsers = shoppingListUpdatedEvent.ShoppingList.EligibleUsers;
+            userIdAndEligibleUsers.Add(shoppingListUpdatedEvent.ShoppingList.CreatorUserId);
+            foreach (var userId in userIdAndEligibleUsers)
             {
-                await _hubContext.Clients.Client(userId).SendAsync("ShoppingListUpdated");
+                var connectionIds = ShoppingListHub.Connections.GetConnections(userId);
+                foreach (var connectionId in connectionIds)
+                {
+                      await _hubContext.Clients.Client(connectionId).SendAsync("UpdateShoppingList", shoppingListUpdatedEvent.ShoppingList);
+                }
             }
         }
     }

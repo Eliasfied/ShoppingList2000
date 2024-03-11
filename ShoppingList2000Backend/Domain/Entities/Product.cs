@@ -10,5 +10,6 @@ namespace Domain.Entities
     {
         public string Name { get; set; }
         public bool IsPermanent { get; set; }
+        public bool IsChecked { get; set; }
     }
 }

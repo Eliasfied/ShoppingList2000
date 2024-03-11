@@ -6,6 +6,7 @@ using Serilog;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using WebApi.Extensions;
+using Infrastructure.Hubs;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,20 @@ builder.Services
     .AddFirebaseAuthentication(builder.Configuration)
     .AddJwtAuthentication(builder.Configuration);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyPolicy",
+    builder =>
+    {
+        builder.WithOrigins("http://localhost:5173")
+               .AllowAnyHeader()
+               .AllowAnyMethod()
+               .AllowCredentials();
+    });
+});
+
+builder.Services.AddSignalR();
+
 builder.Host.UseSerilog();
 
 var app = builder.Build();
@@ -32,13 +47,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors("MyPolicy");
 app.UseSerilogRequestLogging();
-
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MapHub<ShoppingListHub>("/hub/shoppingListHub");
 app.Run();

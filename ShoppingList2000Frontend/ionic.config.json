@@ -1,0 +1,7 @@
+{
+  "name": "ShoppingList2000Frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}

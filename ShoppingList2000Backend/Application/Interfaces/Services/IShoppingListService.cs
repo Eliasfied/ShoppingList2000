@@ -12,8 +12,8 @@ namespace Application.Interfaces.Services
     {
         Task<ShoppingListDTO> CreateShoppingList(ShoppingListDTO shoppingList);
         Task<ShoppingListDTO> GetShoppingList(string shoppingListId);
-        Task<List<ShoppingListDTO>> GetAllShoppingLists();
-        Task<ShoppingListDTO> UpdateShoppingList(ShoppingListDTO shoppingList, string shoppingListId);
+        Task<List<ShoppingListDTO>> GetAllShoppingLists(string userId);
+        Task<ShoppingListDTO> UpdateShoppingList(ShoppingListDTO shoppingList);
         Task<string> DeleteShoppingList(string shoppingListId);
 
     }

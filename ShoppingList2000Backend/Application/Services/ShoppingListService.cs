@@ -44,16 +44,16 @@ namespace Application.Services
 
             
         }
-        public async Task<List<ShoppingListDTO>> GetAllShoppingLists()
+        public async Task<List<ShoppingListDTO>> GetAllShoppingLists(string userId)
         {
-            var shoppingLists = await _shoppingListRepository.GetAllShoppingLists();
+            var shoppingLists = await _shoppingListRepository.GetAllShoppingLists(userId);
 
             return _mapper.Map<List<ShoppingListDTO>>(shoppingLists);
         }
-        public async Task<ShoppingListDTO> UpdateShoppingList(ShoppingListDTO shoppingListDTO, string shoppingListId)
+        public async Task<ShoppingListDTO> UpdateShoppingList(ShoppingListDTO shoppingListDTO)
         {
             var shoppingList = _mapper.Map<ShoppingList>(shoppingListDTO);
-            var shoppingListBack = await _shoppingListRepository.UpdateShoppingList(shoppingList, shoppingListId);
+            var shoppingListBack = await _shoppingListRepository.UpdateShoppingList(shoppingList);
             var shoppingListDTOBack = _mapper.Map<ShoppingListDTO>(shoppingListBack);
 
             var shoppingListUpdatedEvent = new ShoppingListUpdatedEvent(shoppingListBack);

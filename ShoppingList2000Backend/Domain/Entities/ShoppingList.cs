@@ -12,7 +12,8 @@ namespace Domain.Entities
         public string ShoppingListName { get; set; }
         public List<Product> Products { get; set; }
         public string CreatorUserId { get; set; }
-        public List<string> EligebleUsers { get; set; }
+        public List<string> EligibleUsers { get; set; }
+        public string LastUpdatedUser { get; set; }
 
     }
 }

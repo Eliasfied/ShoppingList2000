@@ -11,7 +11,7 @@ namespace Application.Interfaces.Services
     {
         Task<string> RegisterAsync(UserDTO userDTO);
 
-        Task<string> LoginAsync(LoginRequest loginRequest);
+        Task<LoginResponseDTO> LoginAsync(LoginRequest loginRequest);
 
         Task LogoutAsync();
     }

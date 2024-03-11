@@ -12,8 +12,8 @@ namespace Application.Interfaces.Repositories
     {
         Task<ShoppingList> CreateShoppingList(ShoppingList shoppingList);
         Task<ShoppingList> GetShoppingList(string shoppingListId);
-        Task<List<ShoppingList>> GetAllShoppingLists();
-        public Task<ShoppingList> UpdateShoppingList(ShoppingList shoppingList, string shoppingListId);
+        Task<List<ShoppingList>> GetAllShoppingLists(string userId);
+        public Task<ShoppingList> UpdateShoppingList(ShoppingList shoppingList);
         public Task<string> DeleteShoppingList(string shoppingListId);
     }
 }

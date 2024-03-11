@@ -26,10 +26,22 @@ namespace Application.Services
 
             return userRecord.Uid;
         }
-        public async Task<string> LoginAsync(LoginRequest loginRequest)
+        public async Task<LoginResponseDTO> LoginAsync(LoginRequest loginRequest)
         {
             var userCredentials = await _firebaseAuth.SignInWithEmailAndPasswordAsync(loginRequest.Email, loginRequest.Password);
-            return userCredentials is null ? null : await userCredentials.User.GetIdTokenAsync();
+            if (userCredentials == null)
+            {
+                return null;
+            }
+
+            var jwtToken = await userCredentials.User.GetIdTokenAsync();
+            var userUid = userCredentials.User.Uid;
+
+            return new LoginResponseDTO
+            {
+                JwtToken = jwtToken,
+                UserUid = userUid
+            };
         }
 
         public async Task LogoutAsync()

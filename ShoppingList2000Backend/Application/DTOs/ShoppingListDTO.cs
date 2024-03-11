@@ -26,6 +26,8 @@ namespace Application.DTOs
         [Required]
         public string CreatorUserId { get; set; }
 
-        public List<string> EligebleUsers { get; set; }
+        public List<string> EligibleUsers { get; set; }
+        public string LastUpdatedUser { get; set; }
+
     }
 }

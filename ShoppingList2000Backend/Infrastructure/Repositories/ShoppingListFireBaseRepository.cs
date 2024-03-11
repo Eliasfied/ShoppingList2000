@@ -45,24 +45,33 @@ namespace Infrastructure.Repositories
             return shoppingList;
             
         }
-        public async Task<List<ShoppingList>> GetAllShoppingLists()
+        public async Task<List<ShoppingList>> GetAllShoppingLists(string userId)
         {
             var collection = _firestoreDb.Collection(_collectionName);
-            var snapshot = await collection.GetSnapshotAsync();
+            var creatorQuery = collection.WhereEqualTo("CreatorUserId", userId);
+            var eligibleUsersQuery = collection.WhereArrayContains("EligibleUsers", userId);
+            var creatorSnapshot = await creatorQuery.GetSnapshotAsync();
+            var eligibleUsersSnapshot = await eligibleUsersQuery.GetSnapshotAsync();
 
-            return snapshot.Documents
-                           .Select(document => _mapper.Map<ShoppingList>(document.ConvertTo<ShoppingListDocument>()))
-                           .ToList();
+            var shoppingLists = new List<ShoppingList>();
+
+            shoppingLists.AddRange(creatorSnapshot.Documents
+                .Select(document => _mapper.Map<ShoppingList>(document.ConvertTo<ShoppingListDocument>())));
+
+            shoppingLists.AddRange(eligibleUsersSnapshot.Documents
+                .Select(document => _mapper.Map<ShoppingList>(document.ConvertTo<ShoppingListDocument>())));
+
+            return shoppingLists;
         }
 
-        public async Task<ShoppingList> UpdateShoppingList(ShoppingList shoppingList, string shoppingListId)
+        public async Task<ShoppingList> UpdateShoppingList(ShoppingList shoppingList)
         {
-            var documentReference = _firestoreDb.Collection(_collectionName).Document(shoppingListId);
+            var documentReference = _firestoreDb.Collection(_collectionName).Document(shoppingList.ShoppingListId);
             var shoppingListDocument = _mapper.Map<ShoppingListDocument>(shoppingList);
 
             await documentReference.SetAsync(shoppingListDocument, SetOptions.Overwrite);
 
-            return await GetShoppingList(shoppingListId);
+            return await GetShoppingList(shoppingList.ShoppingListId);
         }
 
         public async Task<string> DeleteShoppingList(string shoppingListId)

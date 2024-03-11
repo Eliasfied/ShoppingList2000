@@ -27,8 +27,8 @@ namespace WebApi.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginRequest loginRequest)
         {
-            var jwtToken = await _authenticationService.LoginAsync(loginRequest);
-            return Ok(jwtToken);
+            var loginResponse = await _authenticationService.LoginAsync(loginRequest);
+            return Ok(loginResponse);
         }
 
         [HttpPost("logout")]

@@ -41,6 +41,39 @@ namespace WebApi.Extensions
                         ValidAudience = firebaseProjectId,
                         ValidateLifetime = true
                     };
+
+                    // Hinzufügen von Ereignishandlern
+                    options.Events = new JwtBearerEvents
+                    {
+                        OnTokenValidated = context =>
+                        {
+                            Console.WriteLine("Token validiert: " + context.SecurityToken);
+                            return Task.CompletedTask;
+                        },
+                        OnAuthenticationFailed = context =>
+                        {
+                            Console.WriteLine("Authentifizierung fehlgeschlagen: " + context.Exception);
+                            return Task.CompletedTask;
+                        },
+                        OnMessageReceived = context =>
+                        {
+                            var accessToken = context.Request.Query["access_token"];
+
+                            // Wenn ein Token vorhanden ist und die Anforderung zu Ihrem SignalR-Hub geht
+                            if (!string.IsNullOrEmpty(accessToken) &&
+                                (context.HttpContext.Request.Path.StartsWithSegments("/hub/shoppingListHub")))
+                            {
+                                // Setzen Sie das Token auf den Authorization-Header
+                                context.Token = accessToken;
+                            }
+                            return Task.CompletedTask;
+                        },
+                        OnChallenge = context =>
+                        {
+                            Console.WriteLine("Herausforderung: " + context.Error);
+                            return Task.CompletedTask;
+                        }
+                    };
                 });
 
             return services;

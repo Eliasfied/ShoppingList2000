@@ -32,6 +32,7 @@ public static class DependencyInjection
 
 
         services.AddAutoMapper(assembly, typeof(ShoppingListProfileInfrastructure).Assembly);
+        services.AddSignalRCore();
 
         services.AddSingleton<IAuthenticationService, FireBaseAuthenticationService>();
 
@@ -43,7 +44,8 @@ public static class DependencyInjection
                 provider.GetRequiredService<NotificationEventHandler>()
             };
         });
-
+        
+        services.AddTransient<NotificationEventHandler>();
 
         //FireBase
         FirebaseApp.Create(new AppOptions
