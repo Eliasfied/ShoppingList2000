@@ -14,5 +14,7 @@ namespace Application.Interfaces.Services
         Task<LoginResponseDTO> LoginAsync(LoginRequest loginRequest);
 
         Task LogoutAsync();
+        
+        Task<string> RefreshTokenAsync(string jwt);
     }
 }

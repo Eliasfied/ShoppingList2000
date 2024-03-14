@@ -38,6 +38,12 @@ namespace WebApi.Controllers
             return Ok();
         }
 
+        [HttpGet("refresh")]
+        public async Task <IActionResult> RefreshToken(string jwt)
+        {
+            return Ok("token");
+        }
+
         [HttpGet("geheim")]
         [Authorize]
         public string Get()

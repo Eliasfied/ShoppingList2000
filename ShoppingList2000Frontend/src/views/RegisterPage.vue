@@ -14,7 +14,7 @@
       <ion-input
         v-model="email"
         type="text"
-        label="E-mail"
+        label="E-Mail"
         label-placement="floating"
         fill="outline"
         placeholder="Enter your E-Mail"
@@ -68,6 +68,7 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { registerUser } from "@/services/loginService";
 import { logoFacebook, logoGoogle } from "ionicons/icons";
+import { IonText } from "@ionic/vue";
 
 
 //router
@@ -98,6 +99,15 @@ const register = async () => {
 </script>
 
 <style scoped>
+
+ion-content {
+  --background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.2)), url("../assets/register-background.png") no-repeat center center / cover;
+}
+
+ion-item {
+  --ion-background-color: transparent !important;
+}
+
 
 .center-text {
   display: flex;

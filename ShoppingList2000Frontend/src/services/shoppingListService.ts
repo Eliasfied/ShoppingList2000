@@ -17,3 +17,8 @@ export const updateShoppingList = async (
 export const getShoppingLists = async (userId: string | null) => {
   return await https.get("/api/shoppingList/getAll?userId=" + userId);
 }
+
+
+export const deleteShoppingList = async (shoppingListId: string | null | undefined, userId: string | null) => {
+  return await https.post("/api/shoppingList/delete?shoppingListId=" + shoppingListId + "&userId=" + userId);
+}

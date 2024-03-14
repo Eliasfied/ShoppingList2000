@@ -1,56 +1,81 @@
 <template>
   <ion-page>
     <HeaderComponent title="Meine Listen" />
-    <ion-content :fullscreen="true" color="tertiary">
-      <div class="grid-style-workouts">
-        <div class="workout-list">
+    <ion-content id="main-content">
+      <div class="grid-style-lists">
+        <div class="shopping-list">
           <ul>
             <li v-for="(list, index) in shoppingLists" :key="index">
-              <ion-card @click="goToShoppingList(list.shoppingListId)">
-              <div class="grid-style-li">
-                <div class="list-name">
-                 <ion-label>{{ list.shoppingListName }}</ion-label>
+              <ion-card
+                class="card-background"
+                @click="goToShoppingList(list.shoppingListId)"
+              >
+                <div class="grid-style-li">
+                  <div class="list-name">
+                    <ion-label>{{ list.shoppingListName }}</ion-label>
+                  </div>
+                  <div class="list-edit">
+                    <ion-fab class="edit-fab" @click.stop>
+                      <ion-fab-button class="edit-fab-button">
+                        <ion-icon :icon="menuOutline"></ion-icon>
+                      </ion-fab-button>
+                      <ion-fab-list side="start">
+                        <ion-fab-button
+                          @click="deleteShoppinglist(index)"
+                          class="edit-fab-button-list"
+                        >
+                          <ion-icon
+                            color="danger"
+                            :icon="trashOutline"
+                          ></ion-icon>
+                        </ion-fab-button>
+                        <ion-fab-button
+                          color="medium"
+                          class="edit-fab-button-list"
+                        >
+                          <ion-icon :icon="shareOutline"></ion-icon>
+                        </ion-fab-button>
+                      </ion-fab-list>
+                    </ion-fab>
+                  </div>
+                  <div class="list-items">
+                    <ion-label>{{ countItems(index) }} Items</ion-label>
+                  </div>
+                  <div class="list-users">
+                    <ion-label>{{ shoppingListUsers }}</ion-label>
+                  </div>
                 </div>
-                <div class="list-edit">
-                 <ion-icon @click.stop="goToEditShoppingList(list.shoppingListId)" class="edit-icon" :icon="menuOutline"></ion-icon>
-
-                </div>
-                <div class="list-items">
-                 <ion-label>{{ countItems }}</ion-label>
-
-                </div>
-                <div class="list-users">
-                 <ion-label>{{ shoppingListUsers }}</ion-label>
-
-                </div>
-              </div>
               </ion-card>
             </li>
           </ul>
         </div>
-
-      
       </div>
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button  @click="goToCreateShoppingList">
-        <ion-icon class="add-icon" :icon="addOutline"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
+        <ion-fab-button @click="goToCreateShoppingList">
+          <ion-icon class="add-icon" :icon="addOutline"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
 //imports
-import { onMounted, ref, watch, Ref } from "vue";
+import { onMounted, ref, watch, Ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { loginStore } from "@/store/loginStore";
 import { ShoppingList } from "@/models/ShoppingList";
 import { shoppingListStore } from "@/store/shoppingListStore";
 import { getShoppingLists } from "../services/shoppingListService";
+import { deleteShoppingList } from "../services/shoppingListService";
 import HeaderComponent from "@/components/HeaderComponent.vue";
-import {addOutline, menuOutline} from "ionicons/icons";
-import { IonFab, IonFabButton } from "@ionic/vue";
+import {
+  addOutline,
+  menuOutline,
+  trashOutline,
+  shareOutline,
+} from "ionicons/icons";
+import { IonFab, IonFabButton, IonFabList } from "@ionic/vue";
 
 // store, login, router
 const logStore = loginStore();
@@ -79,8 +104,12 @@ const shopStore = shoppingListStore();
 // shoppingLists
 const shoppingLists = ref([]) as Ref<ShoppingList[]>;
 
-const countItems = "14 Items";
-const shoppingListUsers = "Beate, peter und dieter";
+const countItems = computed(() => {
+  return (index: any) => {
+    return shoppingLists.value[index].products.length;
+  };
+});
+const shoppingListUsers = "";
 const get = async (userId: string | null) => {
   try {
     await getShoppingLists(userId).then((response) => {
@@ -101,17 +130,20 @@ const goToShoppingList = (shoppingListId: string | null | undefined) => {
   }
 };
 
-
-const goToEditShoppingList = (shoppingListId: string | null | undefined) => {
-  if (shoppingListId) {
-    router.push("/editShoppingList/" + shoppingListId);
-  } else {
-    console.log("shoppingListId is undefined");
-  }
-};
-
 const goToCreateShoppingList = () => {
   router.push("/createShoppingList");
+};
+
+const deleteShoppinglist = async (index: number) => {
+  try {
+    await deleteShoppingList(
+      shoppingLists.value[index].shoppingListId,
+      userId.value
+    );
+  } catch (error) {
+    console.log(error);
+  }
+  shoppingLists.value.splice(index, 1);
 };
 
 //watchers
@@ -142,13 +174,21 @@ watch(
 </script>
 
 <style scoped>
-.grid-style-workouts {
-  display: grid;
-  height: 97.5%;
-  grid-template-rows: [row1-start] 5% [row1-end] 95% [row2-start];
+ion-content {
+  --background: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.2)
+    ),
+    url("../assets/home-background.png") no-repeat center center / cover;
 }
 
-.workout-list {
+.grid-style-lists {
+  display: grid;
+  height: 97.5%;
+  grid-template-rows: [row1-start] 1% [row1-end] 98% [row2-start];
+}
+
+.shopping-list {
   width: 100%;
   grid-row: row1-end / row2-start;
 }
@@ -158,7 +198,7 @@ watch(
   height: 100%;
   grid-template-rows: [row1-start] 35% [row1-end] 15% [row2-start] 30% [row2-end] 20% [row3-start];
   grid-template-columns: [column1-start] 80% [column1-end] 20% [column2-start];
-  padding: 2.5%;
+  padding: 3.5%;
 }
 
 .list-name {
@@ -166,14 +206,38 @@ watch(
   grid-column: column1-start / column1-end;
   display: flex;
   align-items: center;
+  color: black;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .list-edit {
+  position: relative;
   grid-row: row1-start / row1-end;
   grid-column: column1-end / column2-start;
   display: flex;
   align-items: center;
   justify-content: center;
+  color: black;
+}
+
+.edit-fab {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.edit-fab-button {
+  width: 50px;
+  height: 50px;
+  --background: transparent;
+  --box-shadow: none;
+}
+
+.edit-fab-button-list {
+  width: 35px;
+  height: 35px;
 }
 
 .list-items {
@@ -181,6 +245,8 @@ watch(
   grid-column: column1-start / column1-end;
   display: flex;
   align-items: start;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
 }
 
 .list-users {
@@ -190,10 +256,10 @@ watch(
   align-items: end;
 }
 
-
 li {
   width: 100%;
   height: 22.5%;
+  margin-top: 5%;
 }
 
 ul {
@@ -211,10 +277,9 @@ ion-card {
 
 ion-fab {
   position: fixed;
-  bottom: 10%; 
+  bottom: 10%;
   left: 50%;
   transform: translateX(-50%);
-  
 }
 
 ion-fab-button {
@@ -232,5 +297,9 @@ ion-fab-button {
   width: 30px;
 }
 
-
+.card-background {
+  background-image: url("../assets/list-background.png");
+  background-size: cover;
+  background-position: center;
+}
 </style>

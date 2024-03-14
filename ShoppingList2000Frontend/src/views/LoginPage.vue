@@ -63,8 +63,16 @@ import { ref } from "vue";
 import { loginStore } from "@/store/loginStore";
 import { useRouter } from "vue-router";
 import { loginUser } from "@/services/loginService";
-import { IonCol, IonRow, IonText } from "@ionic/vue";
+import { IonCol, IonRow, IonText, IonItem } from "@ionic/vue";
 import { logoFacebook, logoGoogle } from "ionicons/icons";
+import { initializeApp } from "firebase/app";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { firebaseConfig } from "@/config/firebaseConfig";
+
+//firebase
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
 //routing
 const router = useRouter();
@@ -85,6 +93,19 @@ const login = async () => {
     const token = response.data.jwtToken;
     const userId = response.data.userUid;
     store.login(token, userId);
+
+    console.log(auth);
+    console.log(token);
+    signInWithEmailAndPassword(auth, email.value, password.value)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        console.log(error);
+        // ...
+      });
     email.value = "";
     password.value = "";
     router.push("/home");
@@ -95,6 +116,17 @@ const login = async () => {
 </script>
 
 <style scoped>
+ion-content {
+  --background: linear-gradient(
+      rgba(255, 255, 255, 0.7),
+      rgba(255, 255, 255, 0.2)
+    ),
+    url("../assets/login-background.png") no-repeat center center / cover;
+}
+ion-item {
+  --ion-background-color: transparent !important;
+}
+
 .center-text {
   display: flex;
   align-items: center;
@@ -115,7 +147,7 @@ const login = async () => {
   font-size: 3em;
   text-align: center;
   margin-bottom: 60px;
-  margin-top: 60px
+  margin-top: 60px;
 }
 
 .facebook-icon {

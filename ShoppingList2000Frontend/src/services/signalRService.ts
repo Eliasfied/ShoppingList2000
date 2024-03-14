@@ -7,7 +7,6 @@ export class SignalRService {
 
   constructor() {
     const logStore = loginStore();
-    console.log("SignalRService constructor", logStore.jwt);
     this.connection = new signalR.HubConnectionBuilder()
       .withUrl(config.signalRUrl, {
         accessTokenFactory: () => {

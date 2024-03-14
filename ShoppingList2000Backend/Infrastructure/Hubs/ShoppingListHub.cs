@@ -37,7 +37,7 @@ namespace Infrastructure.Hubs
             await base.OnDisconnectedAsync(exception);
         }
 
-        public async Task UpdateShoppingList(ShoppingList shoppingList)
+        /*public async Task UpdateShoppingList(ShoppingList shoppingList)
         {
             try
             {
@@ -47,6 +47,6 @@ namespace Infrastructure.Hubs
             {
                 Console.WriteLine(ex.Message);
             }
-        }
+        } */
     }
 }

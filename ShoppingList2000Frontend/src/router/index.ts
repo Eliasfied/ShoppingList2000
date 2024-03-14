@@ -4,7 +4,6 @@ import HomePage from "../views/HomePage.vue";
 import CreateShoppingListPage from "../views/CreateShoppingListPage.vue";
 import LoginPage from "../views/LoginPage.vue";
 import RegisterPage from "../views/RegisterPage.vue";
-import EditShoppingListPage from "../views/EditShoppingListPage.vue";
 import LiveShoppingList from "../views/LiveShoppingList.vue";
 
 import { loginStore } from "@/store/loginStore";
@@ -36,12 +35,6 @@ const routes: Array<RouteRecordRaw> = [
     path: "/register",
     name: "Register",
     component: RegisterPage,
-  },
-  {
-    path: "/editShoppinglist/:id",
-    name: "EditShoppingList",
-    component: EditShoppingListPage,
-    meta: { requiresAuth: true },
   },
   {
     path: "/liveShoppinglist/:id",

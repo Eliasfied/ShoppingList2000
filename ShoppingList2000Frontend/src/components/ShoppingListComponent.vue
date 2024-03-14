@@ -59,7 +59,7 @@ const props = defineProps({
 const shoppingListNew = ref(props.shoppingList);
 const createShoppingList = () => {
   emit("create", shoppingListNew.value);
-  shoppingListNew.value = new ShoppingList("", "", [], []);
+  shoppingListNew.value = new ShoppingList("", "", [], [], "");
 };
 
 const addProductToShoppingList = () => {

@@ -23,8 +23,7 @@ namespace Infrastructure.EventHandlers
 
         public async void Handle(ShoppingListUpdatedEvent shoppingListUpdatedEvent)
         {
-            var userIdAndEligibleUsers = new List<string>();
-            userIdAndEligibleUsers = shoppingListUpdatedEvent.ShoppingList.EligibleUsers;
+            var userIdAndEligibleUsers = new List<string>(shoppingListUpdatedEvent.ShoppingList.EligibleUsers);
             userIdAndEligibleUsers.Add(shoppingListUpdatedEvent.ShoppingList.CreatorUserId);
             foreach (var userId in userIdAndEligibleUsers)
             {

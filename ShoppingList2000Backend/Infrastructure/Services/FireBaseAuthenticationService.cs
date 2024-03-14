@@ -48,5 +48,11 @@ namespace Application.Services
         {
               _firebaseAuth.SignOut();
         }
+
+        public async Task<string> RefreshTokenAsync(string jwt)
+        {
+            string newToken = await _firebaseAuth.User.GetIdTokenAsync();
+            return newToken;
+        }
     }
 }
