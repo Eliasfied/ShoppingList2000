@@ -1,4 +1,6 @@
-﻿using Application.Interfaces.Services;
+﻿using Application.Events;
+using Application.Interfaces.EventHandlers;
+using Application.Interfaces.Services;
 using Application.Mappings;
 using Application.Services;
 using FluentValidation;
@@ -24,6 +26,9 @@ namespace Application;
         services.AddAutoMapper(assembly, typeof(ShoppingListProfileApplication).Assembly);
 
         services.AddSingleton<IShoppingListService, ShoppingListService>();
+        services.AddSingleton<INotificationService, NotificationService>();
+
+
 
         return services;
         }

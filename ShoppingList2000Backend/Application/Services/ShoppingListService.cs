@@ -17,9 +17,9 @@ namespace Application.Services
     {
         IMapper _mapper;
         IShoppingListRepository _shoppingListRepository;
-        private readonly List<IShoppingListUpdatedEventHandler> _updatedEventsHandler;
+        private readonly List<IEventHandler<ShoppingListUpdatedEvent>> _updatedEventsHandler;
 
-        public ShoppingListService(IMapper mapper, IShoppingListRepository shoppingListRepository, List<IShoppingListUpdatedEventHandler> updatedEventsHandler)
+        public ShoppingListService(IMapper mapper, IShoppingListRepository shoppingListRepository, List<IEventHandler<ShoppingListUpdatedEvent>> updatedEventsHandler)
         {
             _mapper = mapper;
             _shoppingListRepository = shoppingListRepository;
@@ -70,5 +70,7 @@ namespace Application.Services
         {
             return _shoppingListRepository.DeleteShoppingList(shoppingListId);
         }
+
+        
     }
 }

@@ -1,7 +1,5 @@
 ﻿using Application.Events;
 using Application.Interfaces.EventHandlers;
-using Domain.Entities;
-using Firebase.Auth;
 using Infrastructure.Hubs;
 using Microsoft.AspNetCore.SignalR;
 using System;
@@ -12,11 +10,12 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.EventHandlers
 {
-    public class NotificationEventHandler : IShoppingListUpdatedEventHandler
+    public class ShoppingListUpdatedNotifyHandler : IEventHandler<ShoppingListUpdatedEvent>
     {
+
         private readonly IHubContext<ShoppingListHub> _hubContext;
 
-        public NotificationEventHandler(IHubContext<ShoppingListHub> hubContext)
+        public ShoppingListUpdatedNotifyHandler(IHubContext<ShoppingListHub> hubContext)
         {
             _hubContext = hubContext;
         }
@@ -30,7 +29,7 @@ namespace Infrastructure.EventHandlers
                 var connectionIds = ShoppingListHub.Connections.GetConnections(userId);
                 foreach (var connectionId in connectionIds)
                 {
-                      await _hubContext.Clients.Client(connectionId).SendAsync("UpdateShoppingList", shoppingListUpdatedEvent.ShoppingList);
+                    await _hubContext.Clients.Client(connectionId).SendAsync("UpdateShoppingList", shoppingListUpdatedEvent.ShoppingList);
                 }
             }
         }

@@ -1,4 +1,6 @@
-﻿using Application.Interfaces.EventHandlers;
+﻿using Application.Events;
+using Application.Interfaces.EventDispatcher;
+using Application.Interfaces.EventHandlers;
 using Application.Interfaces.Repositories;
 using Application.Interfaces.Services;
 using Application.Services;
@@ -37,15 +39,25 @@ public static class DependencyInjection
         services.AddSingleton<IAuthenticationService, FireBaseAuthenticationService>();
 
         services.AddTransient<ShoppingListHub>();
-        services.AddTransient<List<IShoppingListUpdatedEventHandler>>(provider =>
+
+
+        services.AddTransient<IEventHandler<ShoppingListSharedEvent>, ShoppingListSharedCreateNotificationHandler>();
+        services.AddTransient<IEventHandler<ShoppingListSharedEvent>, ShoppingListSharedNotifyHandler>();
+      //  services.AddTransient<IEventHandler<ShoppingListUpdatedEvent>, ShoppingListUpdatedNotifyHandler>();
+
+        services.AddSingleton<IEventDispatcher, EventDispatcher>();
+
+
+
+        services.AddTransient<List<IEventHandler<ShoppingListUpdatedEvent>>>(provider =>
         {
-            return new List<IShoppingListUpdatedEventHandler>
-            {
-                provider.GetRequiredService<NotificationEventHandler>()
-            };
+            return new List<IEventHandler<ShoppingListUpdatedEvent>>
+   {
+       provider.GetRequiredService<ShoppingListUpdatedNotifyHandler>()
+   };
         });
-        
-        services.AddTransient<NotificationEventHandler>();
+
+        services.AddTransient<ShoppingListUpdatedNotifyHandler>();
 
         //FireBase
         FirebaseApp.Create(new AppOptions
@@ -65,6 +77,8 @@ public static class DependencyInjection
             new ShoppingListFireBaseRepository(
                 s.GetRequiredService<IMapper>(),
                 firestoreDb));
+
+        services.AddSingleton<INotificationRepository, NotificationFireBaseRepository>();
 
 
         return services;
