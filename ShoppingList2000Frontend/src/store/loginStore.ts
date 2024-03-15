@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
-import { useTokenValidation } from "../composables/UseTokenValidation";
+import { onAuthChange } from "@/services/fireBaseService";
+
 export const loginStore = defineStore({
   id: "user",
   state: () => ({
@@ -23,17 +24,19 @@ export const loginStore = defineStore({
       localStorage.removeItem("userId");
     },
     async checkLoginStatus() {
-      console.log("checkLoginStatus");
-      const jwt = localStorage.getItem("jwt");
-      const userId = localStorage.getItem("userId");
-      if (jwt && userId) {
-        if (await useTokenValidation(jwt)) {
-          this.login(jwt, userId);
-        } else {
-          console.log("nix im token logge aus");
-          // this.logout();
-        }
-      }
+      return new Promise((resolve) => {
+        onAuthChange((user: any) => {
+          if (user) {
+            console.log("bin in user von checklogin");
+            console.log(user);
+            this.login(user.accessToken, user.uid);
+            resolve(true);
+          } else {
+            this.logout();
+            resolve(false);
+          }
+        });
+      });
     },
   },
 });

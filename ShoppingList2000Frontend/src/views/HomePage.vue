@@ -76,27 +76,28 @@ import {
   shareOutline,
 } from "ionicons/icons";
 import { IonFab, IonFabButton, IonFabList } from "@ionic/vue";
+import { onAuthChange } from "@/services/fireBaseService";
 
 // store, login, router
 const logStore = loginStore();
 const isLoggedIn = ref(false);
 const userId = ref("") as Ref<string> | Ref<null>;
-
 const router = useRouter();
-// const logout = () => {
-//   logStore.logout();
-//   router.push("/login");
-// };
 
 onMounted(async () => {
   console.log("bin im mounted von homepage");
-  await logStore.checkLoginStatus();
-  isLoggedIn.value = logStore.isLoggedIn;
-  userId.value = logStore.userId;
-
-  if (isLoggedIn.value) {
-    get(userId.value);
-  }
+  onAuthChange((user: any) => {
+    if (user) {
+      console.log(user);
+      logStore.login(user.accessToken, user.uid);
+      isLoggedIn.value = true;
+      userId.value = logStore.userId;
+      getLists(userId.value);
+    } else {
+      logStore.logout();
+      isLoggedIn.value = false;
+    }
+  });
 });
 
 const shopStore = shoppingListStore();
@@ -110,7 +111,7 @@ const countItems = computed(() => {
   };
 });
 const shoppingListUsers = "";
-const get = async (userId: string | null) => {
+const getLists = async (userId: string | null) => {
   try {
     await getShoppingLists(userId).then((response) => {
       console.log(response.data);
@@ -168,7 +169,7 @@ watch(
   () => logStore.userId,
   (newUserId) => {
     userId.value = newUserId;
-    get(newUserId);
+    getLists(newUserId);
   }
 );
 </script>

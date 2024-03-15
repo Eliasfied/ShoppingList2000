@@ -7,6 +7,7 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ShoppingListController: ControllerBase
     {
         IShoppingListService _shoppingListService;

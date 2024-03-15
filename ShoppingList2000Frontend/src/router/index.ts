@@ -57,6 +57,7 @@ router.beforeEach(async (to, from, next) => {
     to.matched.some((record) => record.meta.requiresAuth) &&
     !store.isLoggedIn
   ) {
+    console.log("nicht eingeloggt");
     next({ name: "Login" });
   } else {
     next();

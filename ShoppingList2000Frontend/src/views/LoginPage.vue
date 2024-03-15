@@ -65,14 +65,9 @@ import { useRouter } from "vue-router";
 import { loginUser } from "@/services/loginService";
 import { IonCol, IonRow, IonText, IonItem } from "@ionic/vue";
 import { logoFacebook, logoGoogle } from "ionicons/icons";
-import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { firebaseConfig } from "@/config/firebaseConfig";
+import { signIn } from "../services/fireBaseService";
 
 //firebase
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 
 //routing
 const router = useRouter();
@@ -94,17 +89,14 @@ const login = async () => {
     const userId = response.data.userUid;
     store.login(token, userId);
 
-    console.log(auth);
     console.log(token);
-    signInWithEmailAndPassword(auth, email.value, password.value)
+    signIn(email.value, password.value)
       .then((userCredential) => {
-        // Signed in
         const user = userCredential.user;
         console.log(user);
       })
       .catch((error) => {
         console.log(error);
-        // ...
       });
     email.value = "";
     password.value = "";
