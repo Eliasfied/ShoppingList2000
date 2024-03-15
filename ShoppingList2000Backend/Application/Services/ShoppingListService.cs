@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
 using Application.Events;
+using Application.Interfaces.EventDispatcher;
 using Application.Interfaces.EventHandlers;
 using Application.Interfaces.Repositories;
 using Application.Interfaces.Services;
@@ -17,13 +18,16 @@ namespace Application.Services
     {
         IMapper _mapper;
         IShoppingListRepository _shoppingListRepository;
-        private readonly List<IEventHandler<ShoppingListUpdatedEvent>> _updatedEventsHandler;
+       // private readonly List<IEventHandler<ShoppingListUpdatedEvent>> _updatedEventsHandler;
+        private readonly IEventDispatcher _eventDispatcher;
 
-        public ShoppingListService(IMapper mapper, IShoppingListRepository shoppingListRepository, List<IEventHandler<ShoppingListUpdatedEvent>> updatedEventsHandler)
+
+        public ShoppingListService(IMapper mapper, IShoppingListRepository shoppingListRepository, IEventDispatcher eventDispatcher)
         {
             _mapper = mapper;
             _shoppingListRepository = shoppingListRepository;
-            _updatedEventsHandler = updatedEventsHandler;
+            _eventDispatcher = eventDispatcher;
+           // _updatedEventsHandler = updatedEventsHandler;
         }
         public async Task<ShoppingListDTO> CreateShoppingList(ShoppingListDTO shoppingListDTO)
         {
@@ -58,10 +62,8 @@ namespace Application.Services
 
             var shoppingListUpdatedEvent = new ShoppingListUpdatedEvent(shoppingListBack);
 
-            foreach (var handler in _updatedEventsHandler)
-            {
-                handler.Handle(shoppingListUpdatedEvent);
-            }
+            _eventDispatcher.Dispatch(shoppingListUpdatedEvent);
+
 
 
             return shoppingListDTOBack;

@@ -35,7 +35,7 @@ namespace Application.Services
             {
                 SenderId = notificationDTO.SenderId,
                 ReceiverId = notificationDTO.ReceiverId,
-                ShoppingListId = notificationDTO.Data["shoppingListId"].ToString()
+             //   ShoppingListId = notificationDTO.Data["shoppingListId"].ToString()
             };
 
             _eventDispatcher.Dispatch(shoppingListSharedEvent);

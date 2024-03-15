@@ -13,7 +13,7 @@ namespace Domain.Entities
         public string ReceiverId { get; set; }
         public string Type { get; set; }
         public string Status { get; set; }
-        public Dictionary<string, object> Data { get; set; }
+     //   public Dictionary<string, object> Data { get; set; }
 
     }
 

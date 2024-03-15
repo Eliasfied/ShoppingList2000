@@ -27,7 +27,7 @@ namespace Infrastructure.EventHandlers
                 ReceiverId = shoppingListSharedEvent.ReceiverId,
                 Type = "sharedShoppingList",
                 Status = "unread",
-                Data = new Dictionary<string, object> { { "shoppingListId", shoppingListSharedEvent.ShoppingListId } }
+              //  Data = new Dictionary<string, object> { { "shoppingListId", shoppingListSharedEvent.ShoppingListId } }
             };
 
             _notificationRepository.AddNotification(notification);

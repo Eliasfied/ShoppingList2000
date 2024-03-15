@@ -32,8 +32,8 @@ public static class DependencyInjection
 
         var assembly = typeof(DependencyInjection).Assembly;
 
+        services.AddAutoMapper(assembly, typeof(NotificationProfile).Assembly, typeof(ShoppingListProfileInfrastructure).Assembly);
 
-        services.AddAutoMapper(assembly, typeof(ShoppingListProfileInfrastructure).Assembly);
         services.AddSignalRCore();
 
         services.AddSingleton<IAuthenticationService, FireBaseAuthenticationService>();
@@ -43,21 +43,10 @@ public static class DependencyInjection
 
         services.AddTransient<IEventHandler<ShoppingListSharedEvent>, ShoppingListSharedCreateNotificationHandler>();
         services.AddTransient<IEventHandler<ShoppingListSharedEvent>, ShoppingListSharedNotifyHandler>();
-      //  services.AddTransient<IEventHandler<ShoppingListUpdatedEvent>, ShoppingListUpdatedNotifyHandler>();
+        services.AddTransient<IEventHandler<ShoppingListUpdatedEvent>, ShoppingListUpdatedNotifyHandler>();
 
         services.AddSingleton<IEventDispatcher, EventDispatcher>();
 
-
-
-        services.AddTransient<List<IEventHandler<ShoppingListUpdatedEvent>>>(provider =>
-        {
-            return new List<IEventHandler<ShoppingListUpdatedEvent>>
-   {
-       provider.GetRequiredService<ShoppingListUpdatedNotifyHandler>()
-   };
-        });
-
-        services.AddTransient<ShoppingListUpdatedNotifyHandler>();
 
         //FireBase
         FirebaseApp.Create(new AppOptions
@@ -78,8 +67,11 @@ public static class DependencyInjection
                 s.GetRequiredService<IMapper>(),
                 firestoreDb));
 
-        services.AddSingleton<INotificationRepository, NotificationFireBaseRepository>();
 
+        services.AddSingleton<INotificationRepository>(s =>
+           new NotificationFireBaseRepository(
+               s.GetRequiredService<IMapper>(),
+               firestoreDb));
 
         return services;
         }

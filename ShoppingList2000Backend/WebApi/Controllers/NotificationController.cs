@@ -9,12 +9,10 @@ namespace WebApi.Controllers
     [Route("[controller]")]
     public class NotificationController : ControllerBase
     {
-        private readonly INotificationRepository _notificationRepository;
         private readonly INotificationService _notificationService;
 
-        public NotificationController(INotificationRepository notificationRepository, INotificationService notificationService)
+        public NotificationController(INotificationService notificationService)
         {
-            _notificationRepository = notificationRepository;
             _notificationService = notificationService;
         }
 
