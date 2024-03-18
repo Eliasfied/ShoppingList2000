@@ -12,8 +12,10 @@ namespace Domain.Entities
         public string SenderId { get; set; }
         public string ReceiverId { get; set; }
         public string Type { get; set; }
-        public string Status { get; set; }
-     //   public Dictionary<string, object> Data { get; set; }
+        public string Text { get; set; }
+        public bool IsAcknowledged { get; set; }
+        public Dictionary<string, object> Data { get; set; }
+        public DateTime Date { get; set; }
 
     }
 

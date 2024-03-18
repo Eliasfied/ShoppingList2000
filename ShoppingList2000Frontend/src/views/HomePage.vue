@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <HeaderComponent title="Meine Listen" />
+    <HeaderComponent title="My Lists" />
     <ion-content id="main-content">
       <div class="grid-style-lists">
         <div class="shopping-list">
@@ -32,6 +32,7 @@
                         <ion-fab-button
                           color="medium"
                           class="edit-fab-button-list"
+                          @click.stop="openShareDialog(index)"
                         >
                           <ion-icon :icon="shareOutline"></ion-icon>
                         </ion-fab-button>
@@ -56,6 +57,32 @@
         </ion-fab-button>
       </ion-fab>
     </ion-content>
+
+    <ion-alert
+      :is-open="isShareDialogOpen"
+      :header="'Share Shopping List'"
+      :inputs="[
+        {
+          name: 'userId',
+          type: 'text',
+          placeholder: 'Enter user ID',
+        },
+      ]"
+      :buttons="[
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            isShareDialogOpen = false;
+          },
+        },
+        {
+          text: 'Share',
+          handler: (data) => share(data.userId),
+        },
+      ]"
+    ></ion-alert>
   </ion-page>
 </template>
 
@@ -68,6 +95,7 @@ import { ShoppingList } from "@/models/ShoppingList";
 import { shoppingListStore } from "@/store/shoppingListStore";
 import { getShoppingLists } from "../services/shoppingListService";
 import { deleteShoppingList } from "../services/shoppingListService";
+import { shareShoppinglist } from "../services/shoppingListService";
 import HeaderComponent from "@/components/HeaderComponent.vue";
 import {
   addOutline,
@@ -75,8 +103,14 @@ import {
   trashOutline,
   shareOutline,
 } from "ionicons/icons";
-import { IonFab, IonFabButton, IonFabList } from "@ionic/vue";
+import { IonFab, IonFabButton, IonFabList, IonAlert } from "@ionic/vue";
 import { onAuthChange } from "@/services/fireBaseService";
+import useNotifications from "@/composables/useNotifications";
+import { getAllNotifications } from "@/services/notificationService";
+
+//notifications
+
+const { setHasUnreadNotifications } = useNotifications();
 
 // store, login, router
 const logStore = loginStore();
@@ -86,13 +120,24 @@ const router = useRouter();
 
 onMounted(async () => {
   console.log("bin im mounted von homepage");
-  onAuthChange((user: any) => {
+
+  onAuthChange(async (user: any) => {
     if (user) {
       console.log(user);
       logStore.login(user.accessToken, user.uid);
       isLoggedIn.value = true;
       userId.value = logStore.userId;
       getLists(userId.value);
+      const response = await getAllNotifications(userId.value as string);
+      console.log(response.data);
+      const filteredResponse = response.data.filter(
+        (notification: any) => notification.isAcknowledged === false
+      );
+      if (filteredResponse.length > 0) {
+        setHasUnreadNotifications(true);
+      } else {
+        setHasUnreadNotifications(false);
+      }
     } else {
       logStore.logout();
       isLoggedIn.value = false;
@@ -101,6 +146,28 @@ onMounted(async () => {
 });
 
 const shopStore = shoppingListStore();
+
+//Alert
+
+const openShareDialog = (index: number) => {
+  selectedIndex.value = index;
+  isShareDialogOpen.value = true;
+};
+
+const selectedIndex = ref(0);
+
+const isShareDialogOpen = ref(false);
+
+const share = async (receiverId: string) => {
+  console.log(userId.value);
+  console.log(receiverId);
+  console.log(shoppingLists.value[selectedIndex.value].shoppingListId);
+  shareShoppinglist(
+    userId.value as string,
+    receiverId as string,
+    shoppingLists.value[selectedIndex.value].shoppingListId as string
+  );
+};
 
 // shoppingLists
 const shoppingLists = ref([]) as Ref<ShoppingList[]>;

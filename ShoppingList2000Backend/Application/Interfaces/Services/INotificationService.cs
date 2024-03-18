@@ -10,7 +10,7 @@ namespace Application.Interfaces.Services
 {
     public interface INotificationService
     {
-        Task ShareShoppingList(NotificationDTO notificationDTO);
         Task<List<Notification>> GetNotificationsForUser(string userId);
+        Task<Notification> AcknowledgeNotification(string notificationId);
     }
 }

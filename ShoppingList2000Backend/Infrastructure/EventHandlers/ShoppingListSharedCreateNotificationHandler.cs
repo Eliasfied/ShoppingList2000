@@ -25,12 +25,13 @@ namespace Infrastructure.EventHandlers
             {
                 SenderId = shoppingListSharedEvent.SenderId,
                 ReceiverId = shoppingListSharedEvent.ReceiverId,
-                Type = "sharedShoppingList",
-                Status = "unread",
-              //  Data = new Dictionary<string, object> { { "shoppingListId", shoppingListSharedEvent.ShoppingListId } }
+                Text = shoppingListSharedEvent.SenderId + " shared a ShoppingList with you!",
+                IsAcknowledged = false,
+                Data = new Dictionary<string, object> { { "shoppingListId", shoppingListSharedEvent.ShoppingListId } },
+                Date = DateTime.UtcNow
             };
 
-            _notificationRepository.AddNotification(notification);
+            _notificationRepository.CreateNotification(notification);
         }
     }
 }

@@ -43,6 +43,7 @@ public static class DependencyInjection
 
         services.AddTransient<IEventHandler<ShoppingListSharedEvent>, ShoppingListSharedCreateNotificationHandler>();
         services.AddTransient<IEventHandler<ShoppingListSharedEvent>, ShoppingListSharedNotifyHandler>();
+        services.AddTransient<IEventHandler<ShoppingListSharedEvent>, ShoppingListSharedUpdateEligibleUsersHandler>();
         services.AddTransient<IEventHandler<ShoppingListUpdatedEvent>, ShoppingListUpdatedNotifyHandler>();
 
         services.AddSingleton<IEventDispatcher, EventDispatcher>();

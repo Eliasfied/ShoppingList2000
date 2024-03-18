@@ -73,6 +73,18 @@ namespace Application.Services
             return _shoppingListRepository.DeleteShoppingList(shoppingListId);
         }
 
-        
+        public async Task ShareShoppingList(string senderId, string receiverId, string shoppingListId)
+        {
+            var shoppingListSharedEvent = new ShoppingListSharedEvent
+            {
+                SenderId = senderId,
+                ReceiverId = receiverId,
+                ShoppingListId = shoppingListId
+            };
+
+            _eventDispatcher.Dispatch(shoppingListSharedEvent);
+        }
+
+
     }
 }

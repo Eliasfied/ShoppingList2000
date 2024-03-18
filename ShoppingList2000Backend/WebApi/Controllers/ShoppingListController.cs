@@ -1,5 +1,6 @@
 ﻿using Application.DTOs;
 using Application.Interfaces.Services;
+using Application.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,7 +8,7 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+   // [Authorize]
     public class ShoppingListController: ControllerBase
     {
         IShoppingListService _shoppingListService;
@@ -53,6 +54,14 @@ namespace WebApi.Controllers
             var response = await _shoppingListService.DeleteShoppingList(shoppingListId);
 
             return Ok(response);
+        }
+
+        [HttpPost("share")]
+        public async Task<IActionResult> ShareNotification([FromBody] ShareNotificationRequest request)
+        {
+            await _shoppingListService.ShareShoppingList(request.SenderId,request.ReceiverId, request.ShoppingListId);
+
+            return Ok();
         }
 
     }

@@ -5,6 +5,7 @@ import CreateShoppingListPage from "../views/CreateShoppingListPage.vue";
 import LoginPage from "../views/LoginPage.vue";
 import RegisterPage from "../views/RegisterPage.vue";
 import LiveShoppingList from "../views/LiveShoppingList.vue";
+import NotificationPage from "@/views/NotificationPage.vue";
 
 import { loginStore } from "@/store/loginStore";
 
@@ -40,6 +41,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/liveShoppinglist/:id",
     name: "LiveShoppingList",
     component: LiveShoppingList,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/notifications",
+    name: "notifications",
+    component: NotificationPage,
     meta: { requiresAuth: true },
   },
 ];

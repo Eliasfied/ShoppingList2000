@@ -9,7 +9,9 @@ namespace Application.Interfaces.Repositories
 {
     public interface INotificationRepository
     {
-        Task<Notification> AddNotification(Notification notification);
+        Task<Notification> CreateNotification(Notification notification);
         Task<List<Notification>> GetNotificationsForUser(string userId);
+        Task<Notification> AcknowledgeNotification(string notificationId);
+
     }
 }

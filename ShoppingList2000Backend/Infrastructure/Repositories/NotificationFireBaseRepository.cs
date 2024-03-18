@@ -22,22 +22,49 @@ namespace Infrastructure.Repositories
             _mapper = mapper;
             _firestoreDb = firestoreDb;
         }
-        public async Task<Notification> AddNotification(Notification notification) {
+        public async Task<Notification> CreateNotification(Notification notification) {
 
             var collection = _firestoreDb.Collection(_collectionName);
             var notificationDocument = _mapper.Map<NotificationDocument>(notification);
             var notificationBackReference = await collection.AddAsync(notificationDocument);
-
+            var notificationBack = _mapper.Map<Notification>(notificationBackReference);
             Console.WriteLine("Notification in db added");
-            return notification;
+            return notificationBack;
         }
 
-        public Task<List<Notification>> GetNotificationsForUser(string userId)
+        public async Task<List<Notification>> GetNotificationsForUser(string userId)
         {
-            var notifications = new List<Notification>();
+            var collection = _firestoreDb.Collection(_collectionName);
+            var receiverQuery = collection.WhereEqualTo("ReceiverId", userId);
+            var receiverSnapshot = await receiverQuery.GetSnapshotAsync();
+            var notificationDocuments = receiverSnapshot.Documents
+                .Select(documentSnapshot => documentSnapshot.ConvertTo<NotificationDocument>())
+                .ToList();
 
-            return Task.FromResult(notifications);
+            var notifications = _mapper.Map<List<Notification>>(notificationDocuments);
+
+
+            return notifications;
         }
+
+        public async Task<Notification> AcknowledgeNotification(string notificationId)
+        {
+            var documentReference = _firestoreDb.Collection(_collectionName).Document(notificationId);
+            var snapshot = await documentReference.GetSnapshotAsync();
+            var notificationDocument = snapshot.ConvertTo<NotificationDocument>();
+            notificationDocument.IsAcknowledged = true;
+
+            await documentReference.SetAsync(notificationDocument);
+
+            var notificationBack = _mapper.Map<Notification>(notificationDocument);
+
+
+            return notificationBack;
+
+
+
+        }
+
 
     }
 }

@@ -23,9 +23,15 @@ namespace Infrastructure.Data
         public string Type { get; set; }
 
         [FirestoreProperty]
-        public string Status { get; set; }
+        public string Text { get; set; }
 
-    //    [FirestoreProperty]
-     //   public Dictionary<string, object> Data { get; set; }
+        [FirestoreProperty]
+        public bool IsAcknowledged { get; set; }
+
+        [FirestoreProperty]
+        public Dictionary<string, object> Data { get; set; }
+
+        [FirestoreProperty]
+        public DateTime Date { get; set; }
     }
 }

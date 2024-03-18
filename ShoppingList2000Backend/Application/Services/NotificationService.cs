@@ -29,16 +29,13 @@ namespace Application.Services
             return notifications.ToList();
         }
 
-        public async Task ShareShoppingList(NotificationDTO notificationDTO)
+        public async Task<Notification> AcknowledgeNotification(string notificationId)
         {
-            var shoppingListSharedEvent = new ShoppingListSharedEvent
-            {
-                SenderId = notificationDTO.SenderId,
-                ReceiverId = notificationDTO.ReceiverId,
-             //   ShoppingListId = notificationDTO.Data["shoppingListId"].ToString()
-            };
+            var notification = await _notificationRepository.AcknowledgeNotification(notificationId);
 
-            _eventDispatcher.Dispatch(shoppingListSharedEvent);
+            return notification;
         }
+
+      
     }
 }
