@@ -23,10 +23,12 @@ namespace Infrastructure.EventHandlers
         {
             var notification = new Notification
             {
-                SenderId = shoppingListSharedEvent.SenderId,
+                SenderName = shoppingListSharedEvent.SenderName,
+                ReceiverEmail = shoppingListSharedEvent.ReceiverEmail,
                 ReceiverId = shoppingListSharedEvent.ReceiverId,
-                Text = shoppingListSharedEvent.SenderId + " shared a ShoppingList with you!",
+                Text = shoppingListSharedEvent.SenderName + " shared a ShoppingList with you!",
                 IsAcknowledged = false,
+                Type = "sharedShoppingList",
                 Data = new Dictionary<string, object> { { "shoppingListId", shoppingListSharedEvent.ShoppingListId } },
                 Date = DateTime.UtcNow
             };

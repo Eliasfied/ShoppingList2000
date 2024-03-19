@@ -107,9 +107,10 @@ import { IonFab, IonFabButton, IonFabList, IonAlert } from "@ionic/vue";
 import { onAuthChange } from "@/services/fireBaseService";
 import useNotifications from "@/composables/useNotifications";
 import { getAllNotifications } from "@/services/notificationService";
+import { getSignalRService } from "@/composables/signalRInstance";
+
 
 //notifications
-
 const { setHasUnreadNotifications } = useNotifications();
 
 // store, login, router
@@ -117,38 +118,24 @@ const logStore = loginStore();
 const isLoggedIn = ref(false);
 const userId = ref("") as Ref<string> | Ref<null>;
 const router = useRouter();
+const shopStore = shoppingListStore();
+
+
+
 
 onMounted(async () => {
-  console.log("bin im mounted von homepage");
-
   onAuthChange(async (user: any) => {
     if (user) {
-      console.log(user);
-      logStore.login(user.accessToken, user.uid);
-      isLoggedIn.value = true;
-      userId.value = logStore.userId;
-      getLists(userId.value);
-      const response = await getAllNotifications(userId.value as string);
-      console.log(response.data);
-      const filteredResponse = response.data.filter(
-        (notification: any) => notification.isAcknowledged === false
-      );
-      if (filteredResponse.length > 0) {
-        setHasUnreadNotifications(true);
-      } else {
-        setHasUnreadNotifications(false);
-      }
+      await initializeUser(user);
+      await initializeSignalRService();
+      await checkNotifications();
     } else {
-      logStore.logout();
-      isLoggedIn.value = false;
+      logoutUser();
     }
   });
 });
 
-const shopStore = shoppingListStore();
-
 //Alert
-
 const openShareDialog = (index: number) => {
   selectedIndex.value = index;
   isShareDialogOpen.value = true;
@@ -158,13 +145,10 @@ const selectedIndex = ref(0);
 
 const isShareDialogOpen = ref(false);
 
-const share = async (receiverId: string) => {
-  console.log(userId.value);
-  console.log(receiverId);
-  console.log(shoppingLists.value[selectedIndex.value].shoppingListId);
+const share = async (receiverEmail: string) => {
   shareShoppinglist(
-    userId.value as string,
-    receiverId as string,
+    logStore.displayName as string,
+    receiverEmail as string,
     shoppingLists.value[selectedIndex.value].shoppingListId as string
   );
 };
@@ -239,6 +223,41 @@ watch(
     getLists(newUserId);
   }
 );
+
+
+// helper functions
+const initializeUser = async (user: any) => {
+  console.log(user);
+  logStore.login(user.accessToken, user.uid, user.displayName);
+  isLoggedIn.value = true;
+  userId.value = logStore.userId;
+  await getLists(userId.value);
+};
+
+const initializeSignalRService = async () => {
+  const signalRService = getSignalRService();
+  await signalRService.startConnection();
+  signalRService.sharedShoppingListListener(() => {
+    setHasUnreadNotifications(true);
+  });
+};
+
+const checkNotifications = async () => {
+  const response = await getAllNotifications(userId.value as string);
+  const filteredResponse = response.data.filter(
+    (notification: any) => notification.isAcknowledged === false
+  );
+  if (filteredResponse.length > 0) {
+    setHasUnreadNotifications(true);
+  } else {
+    setHasUnreadNotifications(false);
+  }
+};
+
+const logoutUser = () => {
+  logStore.logout();
+  isLoggedIn.value = false;
+};
 </script>
 
 <style scoped>

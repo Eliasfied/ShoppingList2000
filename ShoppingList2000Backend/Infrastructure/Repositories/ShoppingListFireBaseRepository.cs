@@ -2,6 +2,7 @@
 using Application.Interfaces.Repositories;
 using AutoMapper;
 using Domain.Entities;
+using FirebaseAdmin.Auth;
 using Google.Cloud.Firestore;
 using Infrastructure.Data;
 using System;
@@ -81,6 +82,19 @@ namespace Infrastructure.Repositories
             await documentReference.DeleteAsync();
 
             return " Item mit der Id: " + shoppingListId + "wurde erfolgreich aus der Datenbank gelöscht!";
+        }
+
+        public async Task<string> GetUserIdWithEmail(string email)
+        {
+            try
+            {
+                var userRecord = await FirebaseAuth.DefaultInstance.GetUserByEmailAsync(email);
+                return userRecord.Uid;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

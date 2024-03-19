@@ -79,30 +79,35 @@ const register = () => {
 const email = ref("");
 const password = ref("");
 
-//authentification
 const store = loginStore();
+const handleLoginResponse = (response: any) => {
+  const token = response.data.jwtToken;
+  const userId = response.data.userUid;
+  store.login(token, userId);
+  console.log(token);
+};
+
+const handleFirebaseSignIn = (userCredential: any) => {
+  const user = userCredential.user;
+  console.log(user);
+};
+
+const handleError = (error: any) => {
+  console.error(error);
+};
+
 const login = async () => {
   try {
     const response = await loginUser(email.value, password.value);
-    console.log(response);
-    const token = response.data.jwtToken;
-    const userId = response.data.userUid;
-    store.login(token, userId);
-
-    console.log(token);
-    signIn(email.value, password.value)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    handleLoginResponse(response);
+    await signIn(email.value, password.value)
+      .then(handleFirebaseSignIn)
+      .catch(handleError);
     email.value = "";
     password.value = "";
     router.push("/home");
   } catch (error) {
-    console.error(error);
+    handleError(error);
   }
 };
 </script>

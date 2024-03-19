@@ -17,12 +17,18 @@ export class SignalRService {
       .build();
   }
 
-  public async startConnection() {
+  public   async startConnection() {
+    if (this.connection.state !== signalR.HubConnectionState.Disconnected) {
+      console.log('Connection is already started');
+      return;
+    }
+
     try {
       await this.connection.start();
-      console.log("Connected to SignalR hub");
+      console.log('SignalR Connected.');
     } catch (err) {
-      console.error("Error while starting connection: ", err);
+      console.log('Error while starting connection: ', err);
+      // You might want to implement some retry logic here
     }
   }
 
@@ -38,5 +44,9 @@ export class SignalRService {
     updateShoppingListCallback: (updatedShoppingList: any) => void
   ) {
     this.connection.on("UpdateShoppingList", updateShoppingListCallback);
+  }
+
+  public sharedShoppingListListener(sharedShoppingListCallback: () => void) {
+    this.connection.on("ShoppingListShared", sharedShoppingListCallback);
   }
 }

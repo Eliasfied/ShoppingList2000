@@ -1,14 +1,14 @@
 import https from "./https";
 
 export const registerUser = async (
-  name: string,
   email: string,
-  password: string
+  password: string,
+  name: string
 ) => {
   return await https.post("/api/authentication/register", {
-    name: name,
     email: email,
     password: password,
+    name: name
   });
 };
 

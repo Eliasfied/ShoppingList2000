@@ -30,14 +30,14 @@
             ></ion-icon>
             <p :class="{ active: isActive('/profile') }">Profile</p>
           </ion-item>
-          <ion-item @click="logout" color="tertiary"
+          <ion-item @click="logoutUser" color="tertiary"
             ><ion-icon slot="start" :icon="logOutOutline"></ion-icon>
             <p>Logout</p>
           </ion-item>
         </ion-menu-toggle>
 
         <ion-menu-toggle v-else>
-          <ion-item router-link="/profile" color="secondary"
+          <ion-item router-link="/profile" color="tertiary"
             ><ion-icon
               :class="{ active: isActive('/profile') }"
               slot="start"
@@ -49,11 +49,12 @@
       </ion-list>
     </ion-content>
   </ion-menu>
+  <ion-router-outlet id="main-content"></ion-router-outlet>
 </template>
 
 <script setup lang="ts">
 //imports
-import { IonMenu, IonToolbar, IonTitle, IonMenuToggle } from "@ionic/vue";
+import { IonMenu, IonToolbar, IonTitle, IonMenuToggle, IonRouterOutlet } from "@ionic/vue";
 import {
   homeOutline,
   personOutline,
@@ -62,7 +63,8 @@ import {
 } from "ionicons/icons";
 import { useRouter, useRoute } from "vue-router";
 import { loginStore } from "@/store/loginStore";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
+import { logout } from "@/services/fireBaseService";
 
 const logStore = loginStore();
 const router = useRouter();
@@ -73,15 +75,20 @@ const isActive = (path: any) => {
 
 const isLoggedIn = ref(false);
 
+watch(() => logStore.isLoggedIn, (newVal: boolean) => {
+  isLoggedIn.value = newVal;
+});
+
 onMounted(async () => {
   console.log("bin in onMounted drin");
   await logStore.checkLoginStatus();
   isLoggedIn.value = logStore.isLoggedIn;
 });
 
-function logout() {
+function logoutUser() {
   logStore.logout();
   isLoggedIn.value = logStore.isLoggedIn;
+  logout();
   router.push("/login");
 }
 </script>
@@ -96,7 +103,7 @@ ion-icon {
 }
 
 ion-list {
-  background-color: var(--ion-color-secondary);
+  background-color: var(--ion-color-tertiary);
 }
 
 .routerLink {

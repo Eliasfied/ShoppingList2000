@@ -20,13 +20,13 @@ namespace Application.Services
         }
         public async Task<string> RegisterAsync(UserDTO userDTO)
         {
-            var userArgs = new UserRecordArgs { Email = userDTO.Email, Password = userDTO.Password };
+            var userArgs = new UserRecordArgs { Email = userDTO.Email, Password = userDTO.Password, DisplayName = userDTO.Name };
 
             var userRecord = await FirebaseAuth.DefaultInstance.CreateUserAsync(userArgs);
 
             return userRecord.Uid;
         }
-        public async Task<LoginResponseDTO> LoginAsync(LoginRequest loginRequest)
+        public async Task<LoginResponse> LoginAsync(LoginRequest loginRequest)
         {
             var userCredentials = await _firebaseAuth.SignInWithEmailAndPasswordAsync(loginRequest.Email, loginRequest.Password);
             if (userCredentials == null)
@@ -36,11 +36,14 @@ namespace Application.Services
 
             var jwtToken = await userCredentials.User.GetIdTokenAsync();
             var userUid = userCredentials.User.Uid;
+            var username = userCredentials.User.Info.DisplayName;
 
-            return new LoginResponseDTO
+            return new LoginResponse
             {
                 JwtToken = jwtToken,
-                UserUid = userUid
+                UserUid = userUid,
+                Username = username
+                
             };
         }
 

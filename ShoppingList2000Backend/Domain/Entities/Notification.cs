@@ -9,7 +9,8 @@ namespace Domain.Entities
     public class Notification
     {
         public string Id { get; set; }
-        public string SenderId { get; set; }
+        public string SenderName { get; set; }
+        public string ReceiverEmail { get; set; }
         public string ReceiverId { get; set; }
         public string Type { get; set; }
         public string Text { get; set; }

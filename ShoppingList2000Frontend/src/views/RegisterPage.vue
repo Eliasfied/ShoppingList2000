@@ -5,7 +5,7 @@
       <ion-input
         v-model="name"
         type="text"
-        label="Name"
+        label="Username"
         label-placement="floating"
         fill="outline"
         placeholder="Enter your Name"
@@ -79,21 +79,29 @@ const name = ref("");
 const email = ref("");
 const password = ref("");
 
+const handleRegisterResponse = (response: any) => {
+  console.log(response);
+  name.value = "";
+  email.value = "";
+  password.value = "";
+  router.push("/login");
+};
+
+const handleError = (error: any) => {
+  console.error(error);
+};
+
 const register = async () => {
   try {
-    console.log(`Email: ${email.value}, Password: ${password.value}`);
+    console.log(`Email: ${email.value}, Password: ${password.value}, Name: ${name.value}`);
     const response = await registerUser(
-      name.value,
       email.value,
-      password.value
+      password.value,
+      name.value
     );
-    console.log(response);
-    name.value = "";
-    email.value = "";
-    password.value = "";
-    router.push("/login");
+    handleRegisterResponse(response);
   } catch (error) {
-    console.error(error);
+    handleError(error);
   }
 };
 </script>

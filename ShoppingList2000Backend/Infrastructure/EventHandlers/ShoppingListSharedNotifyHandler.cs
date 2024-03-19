@@ -1,6 +1,8 @@
 ﻿using Application.Events;
 using Application.Interfaces.EventHandlers;
 using Application.Interfaces.Repositories;
+using Infrastructure.Hubs;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +13,21 @@ namespace Infrastructure.EventHandlers
 {
     public class ShoppingListSharedNotifyHandler: IEventHandler<ShoppingListSharedEvent>
     {
-        public void Handle(ShoppingListSharedEvent shoppingListSharedEvent)
+        private readonly IHubContext<ShoppingListHub> _hubContext;
+
+        public ShoppingListSharedNotifyHandler(IHubContext<ShoppingListHub> hubContext)
         {
-            Console.WriteLine("Notification versendet!");
+            _hubContext = hubContext;
+        }
+
+        public async void Handle(ShoppingListSharedEvent shoppingListSharedEvent)
+        {
+
+            var connectionIds = ShoppingListHub.Connections.GetConnections(shoppingListSharedEvent.ReceiverId);
+            foreach (var connectionId in connectionIds)
+            {
+                await _hubContext.Clients.Client(connectionId).SendAsync("ShoppingListShared");
+            }
         }
 
     }

@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import { firebaseConfig } from "@/config/firebaseConfig";
 
 const app = initializeApp(firebaseConfig);
@@ -12,4 +12,8 @@ export const signIn = (email: string, password: string) => {
 
 export const onAuthChange = (callback: any) => {
   return onAuthStateChanged(auth, callback);
+};
+
+export const logout = () => {
+  return signOut(auth);
 };

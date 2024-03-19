@@ -14,7 +14,10 @@ namespace Infrastructure.Data
         public string Id { get; set; }
 
         [FirestoreProperty]
-        public string SenderId { get; set; }
+        public string SenderName { get; set; }
+
+        [FirestoreProperty]
+        public string ReceiverEmail { get; set; }
 
         [FirestoreProperty]
         public string ReceiverId { get; set; }

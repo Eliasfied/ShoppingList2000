@@ -8,7 +8,8 @@ namespace Application.Events
 {
     public class ShoppingListSharedEvent
     {
-        public string SenderId { get; set; }
+        public string SenderName { get; set; }
+        public string ReceiverEmail { get; set; }
         public string ReceiverId { get; set; }
         public string ShoppingListId { get; set; }
     }

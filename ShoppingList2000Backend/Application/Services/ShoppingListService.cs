@@ -18,7 +18,6 @@ namespace Application.Services
     {
         IMapper _mapper;
         IShoppingListRepository _shoppingListRepository;
-       // private readonly List<IEventHandler<ShoppingListUpdatedEvent>> _updatedEventsHandler;
         private readonly IEventDispatcher _eventDispatcher;
 
 
@@ -27,7 +26,6 @@ namespace Application.Services
             _mapper = mapper;
             _shoppingListRepository = shoppingListRepository;
             _eventDispatcher = eventDispatcher;
-           // _updatedEventsHandler = updatedEventsHandler;
         }
         public async Task<ShoppingListDTO> CreateShoppingList(ShoppingListDTO shoppingListDTO)
         {
@@ -73,11 +71,13 @@ namespace Application.Services
             return _shoppingListRepository.DeleteShoppingList(shoppingListId);
         }
 
-        public async Task ShareShoppingList(string senderId, string receiverId, string shoppingListId)
+        public async Task ShareShoppingList(string senderName, string receiverEmail, string shoppingListId)
         {
+            var receiverId = await _shoppingListRepository.GetUserIdWithEmail(receiverEmail);
             var shoppingListSharedEvent = new ShoppingListSharedEvent
             {
-                SenderId = senderId,
+                SenderName = senderName,
+                ReceiverEmail = receiverEmail,
                 ReceiverId = receiverId,
                 ShoppingListId = shoppingListId
             };

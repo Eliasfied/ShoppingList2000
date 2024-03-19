@@ -23,10 +23,10 @@ export const deleteShoppingList = async (shoppingListId: string | null | undefin
   return await httpswithToken.post("/api/shoppingList/delete?shoppingListId=" + shoppingListId + "&userId=" + userId);
 }
 
-export const shareShoppinglist = async (senderId: string, receiverId: string, shoppingListId: string) => {
+export const shareShoppinglist = async (SenderName: string, ReceiverEmail: string, shoppingListId: string) => {
   return await httpswithToken.post("/api/ShoppingList/share", {
-    senderId,
-    receiverId,
+    SenderName,
+    ReceiverEmail,
     shoppingListId,
   });
 };

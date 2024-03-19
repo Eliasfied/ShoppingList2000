@@ -59,7 +59,7 @@ namespace WebApi.Controllers
         [HttpPost("share")]
         public async Task<IActionResult> ShareNotification([FromBody] ShareNotificationRequest request)
         {
-            await _shoppingListService.ShareShoppingList(request.SenderId,request.ReceiverId, request.ShoppingListId);
+            await _shoppingListService.ShareShoppingList(request.SenderName,request.ReceiverEmail, request.ShoppingListId);
 
             return Ok();
         }

@@ -1,13 +1,8 @@
 <template>
   <ion-page class="page-background">
-    <ion-header>
-      <ion-toolbar>
-        <ion-title slot="start" color="primary">{{
-          shoppingList?.shoppingListName
-        }}</ion-title>
-      </ion-toolbar>
-    </ion-header>
+    <HeaderComponent :title="shoppingList?.shoppingListName" />
     <ion-content>
+      <div class="border">
         <ion-list class="list" v-if="shoppingList">
           <ion-item v-for="(item, index) in shoppingList.products" :key="index">
             <ion-checkbox
@@ -34,6 +29,7 @@
             <ion-icon :icon="addOutline"></ion-icon>
           </ion-button>
         </ion-item>
+      </div>
     </ion-content>
   </ion-page>
 </template>
@@ -47,8 +43,9 @@ import { ShoppingList } from "@/models/ShoppingList";
 import { IonCheckbox } from "@ionic/vue";
 import { updateShoppingList } from "@/services/shoppingListService";
 import { loginStore } from "@/store/loginStore";
-import { SignalRService } from "@/services/signalRService";
+import { getSignalRService } from "@/composables/signalRInstance";
 import { trashOutline, addOutline } from "ionicons/icons";
+import HeaderComponent from "@/components/HeaderComponent.vue";
 
 //store, route, params
 const route = useRoute();
@@ -57,33 +54,12 @@ const shopStore = shoppingListStore();
 
 const logStore = loginStore();
 
-//SignalR
-const signalRService = new SignalRService();
-
 //shoppingList
 const shoppingList = ref<ShoppingList | undefined>();
 
 onMounted(async () => {
-  shoppingList.value = shopStore.getShoppingList(params.id as string);
-  await signalRService.startConnection();
-  signalRService.addUpdateShoppingListListener(
-    (updatedShoppingList: ShoppingList) => {
-      console.log("bin drin 1");
-      if (
-        logStore.userId &&
-        (logStore.userId == updatedShoppingList.creatorUserId ||
-          updatedShoppingList.eligibleUsers.includes(logStore.userId))
-      ) {
-        console.log("bin drin 2");
-
-        if (updatedShoppingList.lastUpdatedUser !== logStore.userId) {
-          // Update the shopping list
-          console.log("bin drin 3");
-          shoppingList.value = updatedShoppingList;
-        }
-      }
-    }
-  );
+  getShoppingList();
+  addSignalRListener();
 });
 
 const newItem = ref("");
@@ -115,6 +91,28 @@ const update = async () => {
     console.error(error);
   }
 };
+
+//helper functions
+const getShoppingList = () => {
+  shoppingList.value = shopStore.getShoppingList(params.id as string);
+};
+
+const addSignalRListener = () => {
+  const signalRService = getSignalRService();
+  signalRService.addUpdateShoppingListListener(
+    (updatedShoppingList: ShoppingList) => {
+      if (
+        logStore.userId &&
+        (logStore.userId == updatedShoppingList.creatorUserId ||
+          updatedShoppingList.eligibleUsers.includes(logStore.userId))
+      ) {
+        if (updatedShoppingList.lastUpdatedUser !== logStore.userId) {
+          shoppingList.value = updatedShoppingList;
+        }
+      }
+    }
+  );
+};
 </script>
 
 <style scoped>
@@ -133,11 +131,13 @@ ion-checkbox::part(label) {
   color: black;
 }
 
-
 ion-content {
-  --background: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.2)), url("../assets/live-background.png") no-repeat center center / cover;
+  --background: linear-gradient(
+      rgba(255, 255, 255, 0.7),
+      rgba(255, 255, 255, 0.2)
+    ),
+    url("../assets/live-background.png") no-repeat center center / cover;
 }
-
 
 ion-list {
   --ion-background-color: transparent !important;
@@ -149,11 +149,13 @@ ion-item {
 
 ion-input {
   --ion-background-color: transparent !important;
-
 }
 
-
-.list {
-    margin-top: 10%;
+.border {
+  margin-top: 10%;
+  border: 1px solid var(--ion-color-primary);
+  border-radius: 10px;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 </style>
