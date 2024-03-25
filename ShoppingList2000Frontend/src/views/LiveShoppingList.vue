@@ -2,15 +2,15 @@
   <ion-page class="page-background">
     <HeaderComponent :title="shoppingList?.shoppingListName" />
     <ion-content>
-      <div class="border">
-        <ion-list class="list" v-if="shoppingList">
-          <ion-item v-for="(item, index) in shoppingList.products" :key="index">
-            <ion-checkbox
-              label-placement="end"
-              justify="start"
-              @ion-change="update"
-              v-model="item.isChecked"
-            >
+      <ion-card>
+      <ion-list class="list" v-if="shoppingList">
+        <ion-item v-for="(item, index) in shoppingList.products" :key="index">
+          <ion-checkbox
+          label-placement="end"
+          justify="start"
+          @ion-change="update"
+          v-model="item.isChecked"
+          >
               {{ item.name }}</ion-checkbox
             >
             <ion-button
@@ -18,7 +18,7 @@
               color="danger"
               slot="end"
               @click="removeItem(index)"
-            >
+              >
               <ion-icon :icon="trashOutline"></ion-icon>
             </ion-button>
           </ion-item>
@@ -29,8 +29,8 @@
             <ion-icon :icon="addOutline"></ion-icon>
           </ion-button>
         </ion-item>
-      </div>
-    </ion-content>
+        </ion-card>
+      </ion-content>
   </ion-page>
 </template>
 
@@ -151,11 +151,7 @@ ion-input {
   --ion-background-color: transparent !important;
 }
 
-.border {
-  margin-top: 10%;
-  border: 1px solid var(--ion-color-primary);
-  border-radius: 10px;
-  margin-left: 5%;
-  margin-right: 5%;
+ion-card {
+background-color: var(--ion-color-tertiary);
 }
 </style>

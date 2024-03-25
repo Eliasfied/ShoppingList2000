@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Infrastructure</id>
+    <version>1.0.0</version>
+    <authors>Infrastructure</authors>
+    <description>Package Description</description>
+    <repository type="git" commit="9321c011622e67acebd5c186275a7195a2a6bdfe" />
+    <dependencies>
+      <group targetFramework="net7.0">
+        <dependency id="Application" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="AutoMapper" version="13.0.1" exclude="Build,Analyzers" />
+        <dependency id="FirebaseAdmin" version="2.4.0" exclude="Build,Analyzers" />
+        <dependency id="FirebaseAuthentication.net" version="4.1.0" exclude="Build,Analyzers" />
+        <dependency id="Google.Cloud.Firestore" version="3.5.1" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.SignalR.Core" version="1.1.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="8.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="8.0.0" exclude="Build,Analyzers" />
+        <dependency id="Serilog" version="3.1.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\elias.fiedler\source\repos\ShoppingList2000\ShoppingList2000Backend\Infrastructure\bin\Debug\net7.0\Infrastructure.dll" target="lib\net7.0\Infrastructure.dll" />
+  </files>
+</package>

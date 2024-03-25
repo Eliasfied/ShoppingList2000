@@ -49,6 +49,7 @@ public static class DependencyInjection
         services.AddSingleton<IEventDispatcher, EventDispatcher>();
 
 
+
         //FireBase
         FirebaseApp.Create(new AppOptions
         {

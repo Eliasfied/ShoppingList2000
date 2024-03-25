@@ -22,3 +22,7 @@ export const loginUser = async (email: string, password: string) => {
 export const logoutUser = async () => {
   return await https.get("/api/authentication/logout");
 };
+
+export const loginWithGoogle = async (googleToken: string) => {
+  return await https.post("/api/authentication/google?idtoken=" + googleToken);
+};

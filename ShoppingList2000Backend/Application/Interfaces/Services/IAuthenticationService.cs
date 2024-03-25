@@ -14,7 +14,7 @@ namespace Application.Interfaces.Services
         Task<LoginResponse> LoginAsync(LoginRequest loginRequest);
 
         Task LogoutAsync();
+        Task<string> LoginWithGoogle(string googleToken);
         
-        Task<string> RefreshTokenAsync(string jwt);
     }
 }

@@ -32,18 +32,11 @@ export class SignalRService {
     }
   }
 
-  public async sendUpdateShoppingList(shoppingList: any) {
-    try {
-      await this.connection.invoke("UpdateShoppingList", shoppingList);
-    } catch (error) {
-      console.error("Error while sending update: ", error);
-    }
-  }
 
   public addUpdateShoppingListListener(
     updateShoppingListCallback: (updatedShoppingList: any) => void
   ) {
-    this.connection.on("UpdateShoppingList", updateShoppingListCallback);
+    this.connection.on("ShoppingListUpdated", updateShoppingListCallback);
   }
 
   public sharedShoppingListListener(sharedShoppingListCallback: () => void) {

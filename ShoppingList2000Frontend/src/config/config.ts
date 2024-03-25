@@ -1,4 +1,4 @@
 export default {
-    baseURL: 'https://localhost:44329',
-    signalRUrl: 'https://localhost:44329/hub/shoppingListHub'
+    baseURL: 'https://localhost:7044',
+    signalRUrl: 'https://localhost:7044/hub/shoppingListHub'
 };

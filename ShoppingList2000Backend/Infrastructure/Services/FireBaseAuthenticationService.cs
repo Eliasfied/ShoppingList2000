@@ -1,7 +1,11 @@
 ﻿using Application.DTOs;
+using Application.Events;
 using Application.Interfaces.Services;
+using AutoMapper;
+using Domain.Entities;
 using Firebase.Auth;
 using FirebaseAdmin.Auth;
+using Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +16,12 @@ namespace Application.Services
 {
     public class FireBaseAuthenticationService : IAuthenticationService
     {
-
-        private readonly FirebaseAuthClient _firebaseAuth;
+        FirebaseAuthClient _firebaseAuth;
         public FireBaseAuthenticationService(FirebaseAuthClient firebaseAuth)
         {
             _firebaseAuth = firebaseAuth;
         }
+
         public async Task<string> RegisterAsync(UserDTO userDTO)
         {
             var userArgs = new UserRecordArgs { Email = userDTO.Email, Password = userDTO.Password, DisplayName = userDTO.Name };
@@ -26,6 +30,8 @@ namespace Application.Services
 
             return userRecord.Uid;
         }
+
+
         public async Task<LoginResponse> LoginAsync(LoginRequest loginRequest)
         {
             var userCredentials = await _firebaseAuth.SignInWithEmailAndPasswordAsync(loginRequest.Email, loginRequest.Password);
@@ -52,10 +58,21 @@ namespace Application.Services
               _firebaseAuth.SignOut();
         }
 
-        public async Task<string> RefreshTokenAsync(string jwt)
+        public async Task<string> LoginWithGoogle(string googleToken)
         {
-            string newToken = await _firebaseAuth.User.GetIdTokenAsync();
-            return newToken;
+            FirebaseToken decodedToken;
+            try
+            {
+                decodedToken = await FirebaseAuth.DefaultInstance.VerifyIdTokenAsync(googleToken);
+            }
+            catch (Exception ex)
+            {
+                // Handle token verification failure
+                throw new Exception("Failed to verify Google token", ex);
+            }
+
+            return "token valide!";
         }
+
     }
 }

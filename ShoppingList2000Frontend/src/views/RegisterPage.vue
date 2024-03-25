@@ -33,7 +33,7 @@
       <ion-row class="center-text">
         <ion-col class="line"></ion-col>
         <ion-col size="auto">
-          <ion-text color="medium">Or Register with</ion-text>
+          <ion-text color="medium">Or Login with</ion-text>
         </ion-col>
         <ion-col class="line"></ion-col>
       </ion-row>

@@ -109,7 +109,6 @@ import useNotifications from "@/composables/useNotifications";
 import { getAllNotifications } from "@/services/notificationService";
 import { getSignalRService } from "@/composables/signalRInstance";
 
-
 //notifications
 const { setHasUnreadNotifications } = useNotifications();
 
@@ -119,9 +118,6 @@ const isLoggedIn = ref(false);
 const userId = ref("") as Ref<string> | Ref<null>;
 const router = useRouter();
 const shopStore = shoppingListStore();
-
-
-
 
 onMounted(async () => {
   onAuthChange(async (user: any) => {
@@ -224,11 +220,10 @@ watch(
   }
 );
 
-
 // helper functions
 const initializeUser = async (user: any) => {
   console.log(user);
-  logStore.login(user.accessToken, user.uid, user.displayName);
+  logStore.login(user.accessToken, user.uid, user.displayName, user.email);
   isLoggedIn.value = true;
   userId.value = logStore.userId;
   await getLists(userId.value);

@@ -6,6 +6,8 @@ import LoginPage from "../views/LoginPage.vue";
 import RegisterPage from "../views/RegisterPage.vue";
 import LiveShoppingList from "../views/LiveShoppingList.vue";
 import NotificationPage from "@/views/NotificationPage.vue";
+import ProfilePage from "../views/ProfilePage.vue";
+
 
 import { loginStore } from "@/store/loginStore";
 
@@ -47,6 +49,12 @@ const routes: Array<RouteRecordRaw> = [
     path: "/notifications",
     name: "notifications",
     component: NotificationPage,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    component: ProfilePage,
     meta: { requiresAuth: true },
   },
 ];

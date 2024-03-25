@@ -8,6 +8,9 @@ using Microsoft.IdentityModel.Tokens;
 using WebApi.Extensions;
 using Infrastructure.Hubs;
 
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateLogger();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,9 +38,12 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services.AddHealthChecks();
+
 builder.Services.AddSignalR();
 
 builder.Host.UseSerilog();
+
 
 var app = builder.Build();
 
@@ -51,9 +57,12 @@ app.UseCors("MyPolicy");
 app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
 
+app.MapHealthChecks("health");
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 app.MapHub<ShoppingListHub>("/hub/shoppingListHub");
+Log.Information("Die Anwendung startet...");
 app.Run();

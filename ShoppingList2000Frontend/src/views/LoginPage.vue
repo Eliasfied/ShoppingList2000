@@ -33,13 +33,13 @@
 
       <ion-row>
         <ion-col>
-          <ion-button color="white" expand="full"
+          <ion-button @click="facebookLogin" color="white" expand="full"
             ><ion-icon class="facebook-icon" :icon="logoFacebook"></ion-icon
             ><ion-text color="dark">Facebook</ion-text></ion-button
           >
         </ion-col>
         <ion-col>
-          <ion-button color="white" expand="full"
+          <ion-button @click="googleLogin" color="white" expand="full"
             ><ion-icon class="google-icon" :icon="logoGoogle"></ion-icon
             ><ion-text color="dark">Google</ion-text></ion-button
           >
@@ -65,7 +65,7 @@ import { useRouter } from "vue-router";
 import { loginUser } from "@/services/loginService";
 import { IonCol, IonRow, IonText, IonItem } from "@ionic/vue";
 import { logoFacebook, logoGoogle } from "ionicons/icons";
-import { signIn } from "../services/fireBaseService";
+import { signIn, signInWithGoogle, signInWithFacebook } from "../services/fireBaseService";
 
 //firebase
 
@@ -83,7 +83,8 @@ const store = loginStore();
 const handleLoginResponse = (response: any) => {
   const token = response.data.jwtToken;
   const userId = response.data.userUid;
-  store.login(token, userId);
+  const userName = response.data.userName;
+  store.login(token, userId, userName, email.value);
   console.log(token);
 };
 
@@ -110,6 +111,40 @@ const login = async () => {
     handleError(error);
   }
 };
+
+
+const googleLogin = async () => {
+  try {
+   const credentials = await signInWithGoogle();
+    console.log(credentials);
+    if (credentials!=null) {
+
+      store.login(credentials.token, credentials.userId , credentials.userName as string, credentials.userEmail as string);
+    }
+    router.push("/home");
+
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+const facebookLogin = async () => {
+  try {
+   const credentials = await signInWithFacebook();
+    console.log(credentials);
+    if (credentials!=null) {
+
+      store.login(credentials.token, credentials.userId , credentials.userName as string, credentials.userEmail as string);
+    }
+    router.push("/home");
+
+  } catch (error) {
+    handleError(error);
+  }
+};
+
+
+
 </script>
 
 <style scoped>
