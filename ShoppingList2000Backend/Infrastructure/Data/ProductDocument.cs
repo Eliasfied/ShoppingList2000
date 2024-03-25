@@ -18,5 +18,8 @@ namespace Infrastructure.Data
 
         [FirestoreProperty]
         public bool IsChecked { get; set; }
+
+        [FirestoreProperty]
+        public int Count { get; set; }
     }
 }

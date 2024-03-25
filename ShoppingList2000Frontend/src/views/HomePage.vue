@@ -57,32 +57,6 @@
         </ion-fab-button>
       </ion-fab>
     </ion-content>
-
-    <ion-alert
-      :is-open="isShareDialogOpen"
-      :header="'Share Shopping List'"
-      :inputs="[
-        {
-          name: 'userId',
-          type: 'text',
-          placeholder: 'Enter user ID',
-        },
-      ]"
-      :buttons="[
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            isShareDialogOpen = false;
-          },
-        },
-        {
-          text: 'Share',
-          handler: (data) => share(data.userId),
-        },
-      ]"
-    ></ion-alert>
   </ion-page>
 </template>
 
@@ -103,7 +77,7 @@ import {
   trashOutline,
   shareOutline,
 } from "ionicons/icons";
-import { IonFab, IonFabButton, IonFabList, IonAlert } from "@ionic/vue";
+import { IonFab, IonFabButton, IonFabList, alertController } from "@ionic/vue";
 import { onAuthChange } from "@/services/fireBaseService";
 import useNotifications from "@/composables/useNotifications";
 import { getAllNotifications } from "@/services/notificationService";
@@ -132,22 +106,45 @@ onMounted(async () => {
 });
 
 //Alert
-const openShareDialog = (index: number) => {
+
+const selectedIndex = ref(null);
+const openShareDialog = async (index: number) => {
   selectedIndex.value = index;
-  isShareDialogOpen.value = true;
+
+  const alert = await alertController.create({
+    header: 'Share Shopping List',
+    inputs: [
+      {
+        name: 'email',
+        type: 'text',
+        placeholder: 'Enter Email',
+      },
+    ],
+    buttons: [
+      {
+        text: 'Cancel',
+        role: 'cancel',
+        cssClass: 'secondary',
+      },
+      {
+        text: 'Share',
+        handler: (data) => share(data.email),
+      },
+    ],
+  });
+
+  await alert.present();
 };
 
-const selectedIndex = ref(0);
-
-const isShareDialogOpen = ref(false);
-
 const share = async (receiverEmail: string) => {
+  console.log(receiverEmail);
   shareShoppinglist(
     logStore.displayName as string,
     receiverEmail as string,
     shoppingLists.value[selectedIndex.value].shoppingListId as string
   );
 };
+
 
 // shoppingLists
 const shoppingLists = ref([]) as Ref<ShoppingList[]>;
