@@ -1,0 +1,403 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\ShoppingList2000BackendTest\\ShoppingList2000BackendTest.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Application\\Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Application\\Application.csproj",
+        "projectName": "Application",
+        "projectPath": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Application\\Application.csproj",
+        "packagesPath": "C:\\Users\\elias.fiedler\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\elias.fiedler\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Domain\\Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.9.0, )"
+            },
+            "FluentValidation.DependencyInjectionExtensions": {
+              "target": "Package",
+              "version": "[11.9.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Domain\\Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Domain\\Domain.csproj",
+        "projectName": "Domain",
+        "projectPath": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\elias.fiedler\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\elias.fiedler\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Infrastructure\\Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Infrastructure\\Infrastructure.csproj",
+        "projectName": "Infrastructure",
+        "projectPath": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Infrastructure\\Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\elias.fiedler\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\elias.fiedler\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Application\\Application.csproj": {
+                "projectPath": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Application\\Application.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "FirebaseAdmin": {
+              "target": "Package",
+              "version": "[2.4.0, )"
+            },
+            "FirebaseAuthentication.net": {
+              "target": "Package",
+              "version": "[4.1.0, )"
+            },
+            "Google.Cloud.Firestore": {
+              "target": "Package",
+              "version": "[3.5.1, )"
+            },
+            "Microsoft.AspNetCore.SignalR.Core": {
+              "target": "Package",
+              "version": "[1.1.0, )"
+            },
+            "Microsoft.Extensions.Configuration.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Serilog": {
+              "target": "Package",
+              "version": "[3.1.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\ShoppingList2000BackendTest\\ShoppingList2000BackendTest.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\ShoppingList2000BackendTest\\ShoppingList2000BackendTest.csproj",
+        "projectName": "ShoppingList2000BackendTest",
+        "projectPath": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\ShoppingList2000BackendTest\\ShoppingList2000BackendTest.csproj",
+        "packagesPath": "C:\\Users\\elias.fiedler\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\ShoppingList2000BackendTest\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\elias.fiedler\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Application\\Application.csproj": {
+                "projectPath": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Application\\Application.csproj"
+              },
+              "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\WebApi\\WebApi.csproj": {
+                "projectPath": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\WebApi\\WebApi.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Mvc.Testing": {
+              "target": "Package",
+              "version": "[8.0.3, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.6.0, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.70, )"
+            },
+            "NUnit": {
+              "target": "Package",
+              "version": "[3.13.3, )"
+            },
+            "NUnit.Analyzers": {
+              "target": "Package",
+              "version": "[3.6.1, )"
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[4.2.1, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\WebApi\\WebApi.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\WebApi\\WebApi.csproj",
+        "projectName": "WebApi",
+        "projectPath": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\WebApi\\WebApi.csproj",
+        "packagesPath": "C:\\Users\\elias.fiedler\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\WebApi\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\elias.fiedler\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {
+              "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Application\\Application.csproj": {
+                "projectPath": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Application\\Application.csproj"
+              },
+              "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Infrastructure\\Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[7.0.16, )"
+            },
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[7.0.14, )"
+            },
+            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+              "target": "Package",
+              "version": "[1.19.5, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.5.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

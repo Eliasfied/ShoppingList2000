@@ -50,11 +50,7 @@ namespace WebApi.Controllers
             return Ok();
         }
 
-        [HttpPost("google")]
-        public async Task<IActionResult> LoginWithGoogle(string googleToken)
-        {
-            return Ok();
-        }
+      
 
     }
 }

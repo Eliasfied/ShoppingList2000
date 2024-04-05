@@ -1,0 +1,6 @@
+{
+  "Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Application",
+  "Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Domain",
+  "Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\Infrastructure",
+  "WebApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Users\\elias.fiedler\\source\\repos\\ShoppingList2000\\ShoppingList2000Backend\\WebApi"
+}
