@@ -20,10 +20,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Infrastructure\Repositories\" />
     <ProjectReference Include="..\WebApi\WebApi.csproj" />
     <ProjectReference Include="..\Application\Application.csproj" />
     <Folder Include="Domain\" />
-    <Folder Include="Infrastructure\" />
   </ItemGroup>
 
 </Project>
