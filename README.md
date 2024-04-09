@@ -16,6 +16,17 @@ ShoppingList2000 is a lightweight ShoppingList App which makes shopping alone or
 *Notification system
 
 
+# Technology
+
+*Frontend: Ionic and Vue.js
+
+-> LocalStorage, Pinia and vue-router
+
+*Backend: ASP.NET
+
+-> REST API, Controllers, Dependency Injection, Authentification, Authorization, Domain-Driven-Design, Event-Driven-Architecture and Clean Architecture, SignalR, Serilog, AutoMapper, NUnit, FireBase and FireStore
+
+
 # Example images
 
 ## Login Page
@@ -31,15 +42,6 @@ ShoppingList2000 is a lightweight ShoppingList App which makes shopping alone or
 
 
 
-# Technology
-
-*Frontend: Ionic and Vue.js
-
--> LocalStorage, Pinia and vue-router
-
-*Backend: ASP.NET
-
--> REST API, Controllers, Dependency Injection, Authentification, Authorization, Domain-Driven-Design, Event-Driven-Architecture and Clean Architecture, SignalR, Serilog, AutoMapper, NUnit, FireBase and FireStore
 
 
 
