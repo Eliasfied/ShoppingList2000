@@ -1,5 +1,5 @@
 webApi/firebase.json
 webApi/appsettings.json
-*.debug
-*.obj
+obj/
+bin/
 .vs/
